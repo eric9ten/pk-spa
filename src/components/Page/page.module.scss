@@ -1,0 +1,28 @@
+.page {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+
+    .container {
+        width: calc(100% - 32px);
+        max-width: 1400px;
+        margin: 0 auto;
+
+        /*@include media-query($medium-up) {
+            width: calc(100% - 64px);
+        }*/
+
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-content: center;
+            width: 100%;
+            max-width: 1080px;
+            height: 90vh;
+            margin: 0 auto;
+
+        }
+    }
+}
