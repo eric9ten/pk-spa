@@ -51,7 +51,10 @@ function GameSetupForm(props) {
       })
 
       //if(isValid) {
-        history.push('/goal-setup')
+        history.push({
+          pathname: '/goal-setup',
+          state: {name: formData.yourName}
+        })
       //}
     //}, 3000);
   }
