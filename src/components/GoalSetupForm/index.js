@@ -1,38 +1,45 @@
 import React, { useReducer, useState } from 'react'
+import { useEffect } from "react";
 import { ReactDOM } from 'react'
+import { useLocation } from 'react-router'
 import history from '../../history'
 
 import s from './game-setup.module.scss'
+import reactDom from 'react-dom'
 
-export default class GoalSetupForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {goal: []};
-  }
+export default function GoalSetupForm(props) { 
+  const initialValues = {
+    selGoal: ''
+  }    
+  
+  const location = useLocation();
+  let gameInfo = '';
 
-  //const [submitting, setSubmitting] = useState(false);
-  //const { state } = props.location.state
+  useEffect(() => {
+     console.log(location.state.gameData); // result: 'some_value'
+     gameInfo = location.state.gameData
+  }, [location]);
 
-  goalClick (goal, e) {
+  function goalClick (selGoal, e) {
     e.preventDefault();
 
-    console.log("My goal is on the " + goal + " and the date is " )
-    console.log("Props are ")
-    console.log(this.props.name)
-    
-    //history.push('/game')
+    history.push({
+      pathname: '/game',
+      state: {
+        gameData: gameInfo,
+        startGoal: selGoal
+      }
+    })
 
   }
 
-    render(){
-      return (
-        <div className={s.goalSetupFormContainer}>
-            <h2>Which goal is your team defending?</h2>
-            <div className={s.goalSelection}>
-              <button type="button" className={s.goal} onClick={(e) => this.goalClick('left', e)}>&larr;</button>
-              <button type="button" className={s.goal} onClick={(e) => this.goalClick('right', e)}>&rarr;</button>
-            </div>
+  return (
+    <div className={s.goalSetupFormContainer}>
+        <h2>Which goal is your team defending?</h2>
+        <div className={s.goalSelection}>
+          <button type="button" className={s.goal} onClick={(e) => goalClick('left', e)}>&larr;</button>
+          <button type="button" className={s.goal} onClick={(e) => goalClick('right', e)}>&rarr;</button>
         </div>
-      );
-    }
+    </div>
+  );
 }

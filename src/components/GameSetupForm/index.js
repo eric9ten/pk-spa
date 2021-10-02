@@ -4,121 +4,123 @@ import history from '../../history'
 
 import s from './game-setup.module.scss'
 
-const formReducer = (state, event) => {
-  if(event.reset) {
-   return {
-      date: '',
-      yourName: '',
-      yourAbbrev: '',
-      'isHome': true,
-      oppName: '',
-      oppAbbrev: '',
-      isValid: true
+export default function GameSetupForm() { 
+  const initialValues = {
+    gameDate: '',
+    yourName: '',
+    yourAbbrev: '',
+    oppName: '',
+    oppAbbrev: '',
 
-   }
- }
-  return {
-    ...state,
-    [event.name]: event.value
   }
-}
 
-function GameSetupForm(props) {
+  const [isHome, setIsHome] = React.useState( true );
 
-  const [formData, setFormData] = useReducer(formReducer, {});
+  const [formValues, setFormValues] = useReducer (
+    (curVals, newVals) => ({ ...curVals, ...newVals}), initialValues
+  )
+  const { gameDate, yourName, yourAbbrev, oppName, oppAbbrev } = formValues;
   const [submitting, setSubmitting] = useState(false);
+  //const [isValid, checkIsValid] = useState(false);
 
-  const handleChange= event => {
-
+  function handleChange(event) {
     const isCheckbox = event.target.type === 'checkbox';
+    const { name, value } = event.target
     
-    setFormData({
-      name: event.target.name,
-      value: isCheckbox ? event.target.checked : event.target.value,
-    })
+    setFormValues({
+      [name]: isCheckbox ? event.target.checked : value
+     })
+
+    //isValid = checkIsValid()
 
   }
 
-  const handleSubmit = event =>{
+  function handleSubmit (event) {
     
     event.preventDefault();
     setSubmitting(true);
 
-    //setTimeout(() => {
-      setSubmitting(false);
-      setFormData({
-       reset: true
+    //if(isValid) {
+      history.push({
+        pathname: '/goal-setup',
+        state: {gameData: formValues}
       })
-
-      //if(isValid) {
-        history.push({
-          pathname: '/goal-setup',
-          state: {name: "test name"}
-        })
-      //}
-    //}, 3000);
+    //}
+    setSubmitting(false);
   }
 
-    return (
-      <div className={s.gameSetupFormContainer}>
-      {submitting &&
-        <div>
-          You are submitting the following:
-          <ul>
-            {Object.entries(formData).map(([name, value]) => (
-              <li key={name}><strong>{name}</strong>: {value.toString()}</li>
-            ))}
-          </ul>
+  function checkIsValid () {
+
+    //isValid = gameDate === '' ? false : true
+    if (yourName === '') {
+      console.log ("yourName is not valid")
+      return
+    }
+    if (yourAbbrev === '') {
+      console.log ("yourAbbrev is not valid")
+      return
+    }
+    if (oppName === '') {
+      console.log ("oppName is not valid")
+      return
+    }
+    if (oppAbbrev ==='') {
+      console.log ("oppAbbrev is not valid")
+      return
+    }
+
+    //isValid = true
+
+  }
+
+  return (
+    <div className={s.gameSetupFormContainer}>
+      <form className={s.gameSetupForm} onSubmit={handleSubmit} disabled={submitting}>
+        <div className={s.inputWrapper}>        
+          <label>Date:
+            <input type="date" name="gameDate" value={gameDate} onChange={handleChange} />        
+          </label>
         </div>
-      }
-        <form onSubmit={handleSubmit} className={s.gameSetupForm}>
+        <div className={s.teamWrapper}>
+          <div className={s.teamName}>
+            <p>Your Team:</p>
+          </div>
           <div className={s.inputWrapper}>        
-            <label>Date:
-              <input type="date" name="date" value={formData.date} onChange={handleChange} />        
+            <label>Name:
+              <input type="text" name="yourName" value={yourName} onChange={handleChange} />        
             </label>
           </div>
-          <div className={s.teamWrapper}>
-            <div className={s.teamName}>
-              <p>Your Team:</p>
-            </div>
-            <div className={s.inputWrapper}>        
-              <label>Name:
-                <input type="text" name="yourName" value={formData.yourName || ''} onChange={handleChange} />        
-              </label>
-            </div>
-            <div className={s.inputWrapper}>        
-              <label>Abbrev:
-                <input type="text" name="yourAbbrev" value={formData.yourAbbrev || ''} onChange={handleChange} />        
-              </label>
-            </div>
-            <div className={s.inputWrapper}>
-              <div className={s.toggleLabel}><p>Visitor</p></div>
-              <input type="checkbox" name="isHome" id="toggle" checked={formData['isHome'] || false} className={s.offscreen} onChange={handleChange}/>
-              <label for="toggle" className={s.switch}></label>
-              <div className={s.toggleLabel}><p>Home</p></div>
-            </div>
+          <div className={s.inputWrapper}>        
+            <label>Abbrev:
+              <input type="text" name="yourAbbrev" value={yourAbbrev} onChange={handleChange} />        
+            </label>
           </div>
-          <div className={s.teamWrapper}>
-            <div className={s.teamName}>
-              <p>Opponent:</p>
-            </div>
-            <div className={s.inputWrapper}>        
-              <label>Name:
-                <input type="text" name="oppName" value={formData.oppName  || ''} onChange={handleChange} />        
-              </label>
-            </div>
-            <div className={s.inputWrapper}>        
-              <label>Abbrev:
-                <input type="text" name="oppAbbrev" value={formData.oppAbbrev || ''} onChange={                                                                                                       handleChange} />        
-              </label>
-            </div>
+          <div className={s.inputWrapper}>
+            <div className={s.toggleLabel}><p>Visitor</p></div>
+            <input type="checkbox" name="isHome" id="toggle" className={s.offscreen} onChange={handleChange} />
+            <label htmlFor="toggle" className={s.switch}></label>
+            <div className={s.toggleLabel}><p>Home</p></div>
           </div>
-            <div className={s.inputWrapper}>  
-              <input type="submit" value="Submit" disabled={submitting} />
-            </div>
-        </form>
-      </div>
-    );
+        </div>
+        <div className={s.teamWrapper}>
+          <div className={s.teamName}>
+            <p>Opponent:</p>
+          </div>
+          <div className={s.inputWrapper}>        
+            <label>Name:
+              <input type="text" name="oppName" value={oppName} onChange={handleChange} />        
+            </label>
+          </div>
+          <div className={s.inputWrapper}>        
+            <label>Abbrev:
+              <input type="text" name="oppAbbrev" value={oppAbbrev} onChange={handleChange} />   
+            </label>
+          </div>
+        </div>
+          <div className={s.inputWrapper}>  
+            <input type="submit" value="Submit" disabled={submitting} />
+          </div>
+      </form>
+    </div>
+  );
 }
-
-export default GameSetupForm;
