@@ -1,5 +1,5 @@
 import React from 'react'
-import Page from './../../components/Page'
+import Page from '../../components/Page'
 import GameSetupForm from '../../components/GameSetupForm'
 
 import s from './game-setup.module.scss' 

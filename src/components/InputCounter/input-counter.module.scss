@@ -1,0 +1,29 @@
+.inputCounter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 250px;
+    font-size: 1.2rem;
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    .input {
+        text-align: center;
+    }
+
+    .counterButton {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 2rem;
+        min-height: 2rem;
+    }
+}
