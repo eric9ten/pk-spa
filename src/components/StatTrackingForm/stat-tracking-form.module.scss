@@ -1,17 +1,34 @@
 .statTrackingForm {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
 
-    .labels {
-        height: 2rem;
+    .statGroup {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 1rem;
 
-        p {
-            margin-top: 0;
-            line-height: 2rem;
-            text-align: center;
-            vertical-align: middle;
+        .statCol {
+            flex: 1 1 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .labels {
+            flex: 1 1 20%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            height: 2rem;
+
+            p {
+                margin-top: 0;
+                line-height: 1;
+                text-align: center;
+                vertical-align: middle;
+            }
         }
     }
 

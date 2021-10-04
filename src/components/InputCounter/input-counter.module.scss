@@ -5,6 +5,14 @@
     max-width: 250px;
     font-size: 1.2rem;
 
+    &.inputRight {
+        flex-direction: row;
+    }
+
+    &.inputLeft {
+        flex-direction: row-reverse;
+    }
+
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
         -webkit-appearance: none;
@@ -16,6 +24,8 @@
     }
 
     .input {
+        width:50%;
+        max-width: 6rem;
         text-align: center;
     }
 
