@@ -1,0 +1,88 @@
+.goalCounter {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 250px;
+    font-size: 1.2rem;
+
+    &.inputRight {
+        .teamAbbrev { 
+            order: 1;
+            margin-right: .5rem;
+        }
+        .input { 
+            order: 2;
+        }
+
+        .scoreBoard {
+            justify-content: flex-end;
+        }
+
+        .buttons {
+            justify-content: flex-end;
+        }
+    }
+
+    &.inputLeft {
+        .teamAbbrev { 
+            order: 2;
+            margin-left: .5rem;
+        }
+        .input { 
+            order: 1;
+        }
+
+        .scoreBoard {
+            justify-content: flex-start;
+        }
+
+        .buttons {
+            justify-content: flex-start;
+        }
+
+    }
+
+    .scoreBoard {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        h2 {
+            margin: 0;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        .input {
+            width: 30%;
+            max-width: 4rem;
+            text-align: center;
+            border: none;
+        }
+    }
+
+    .buttons {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        margin-top: .5rem;
+
+        .counterButton {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 2rem;
+            min-height: 2rem;
+        }
+
+    }
+}

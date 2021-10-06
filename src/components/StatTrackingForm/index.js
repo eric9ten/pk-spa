@@ -1,12 +1,36 @@
 import React from 'react'
+import { useEffect } from "react";
+import { useLocation } from 'react-router'
+
 import Counter from '../InputCounter'
+import GoalCounter from '../GoalCounter'
 
 import s from './stat-tracking-form.module.scss'
 
+let gameInfo = '';
+
 export default function StatTrackingForm() {
+
+    const location = useLocation();
+
+    useEffect(() => {
+        console.log(location.state.gameData); // result: 'some_value'
+        //gameInfo = location.state.gameData
+    }, [location]);
 
     return (
         <div className={s.statTrackingForm}>
+            <div className={`${s.statGroup} ${s.goals}`}>
+                <div className={`${s.leftGoal} ${s.statCol}`}>
+                    <GoalCounter inputName={"leftGoals"} maxInc={99} size={3} inputSide={"right"} teamAbbrev={"Home"}/>
+                </div>
+                <div className={s.labels}>
+                    <p>Goals</p>
+                </div>
+                <div className={`${s.rightGoal} ${s.statCol}`}>
+                    <GoalCounter inputName={"rightGoals"} maxInc={99} size={3} inputSide={"left"} teamAbbrev={"Vis"}/>
+                </div>
+            </div>
             <div className={`${s.statGroup} ${s.passes}`}>
                 <div className={`${s.leftGoal} ${s.statCol}`}>
                     <Counter inputName={"leftPasses"} maxInc={999} size={4} inputSide={"right"} />

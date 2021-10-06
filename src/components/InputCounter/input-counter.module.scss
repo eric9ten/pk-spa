@@ -6,11 +6,27 @@
     font-size: 1.2rem;
 
     &.inputRight {
-        flex-direction: row;
+        .buttonMinus { 
+            order: 1
+        }
+        .buttonPlus { 
+            order: 2
+        }
+        .input { 
+            order: 3
+        }
     }
 
     &.inputLeft {
-        flex-direction: row-reverse;
+        .buttonMinus { 
+            order: 2
+        }
+        .buttonPlus { 
+            order: 3
+        }
+        .input { 
+            order: 1
+        }
     }
 
     input::-webkit-outer-spin-button,

@@ -16,7 +16,6 @@ export default function GoalSetupForm(props) {
   let gameInfo = '';
 
   useEffect(() => {
-     console.log(location.state.gameData); // result: 'some_value'
      gameInfo = location.state.gameData
   }, [location]);
 
