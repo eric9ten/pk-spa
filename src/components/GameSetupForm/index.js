@@ -1,5 +1,4 @@
 import React, { useReducer, useState } from 'react'
-import { Redirect } from 'react-router-dom'
 import history from '../../history'
 
 import s from './game-setup.module.scss'
