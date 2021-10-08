@@ -23,7 +23,7 @@ export default function GoalSetupForm(props) {
     e.preventDefault();
 
     history.push({
-      pathname: '/game',
+      pathname: '/game-tracking',
       state: {
         gameData: gameInfo,
         startGoal: selGoal

@@ -4,7 +4,6 @@
     justify-content: space-between;
     align-items: center;
     max-width: 250px;
-    font-size: 1.2rem;
 
     &.inputRight {
         .teamAbbrev { 
@@ -47,6 +46,7 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        font-size: 2rem;
 
         h2 {
             margin: 0;

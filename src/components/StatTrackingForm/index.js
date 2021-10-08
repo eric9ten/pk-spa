@@ -1,34 +1,47 @@
 import React from 'react'
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from 'react-router'
+import { Link } from 'react-router-dom'
 
 import Counter from '../InputCounter'
 import GoalCounter from '../GoalCounter'
 
 import s from './stat-tracking-form.module.scss'
 
-let gameInfo = '';
-
 export default function StatTrackingForm() {
-
     const location = useLocation();
+    const [gameInfo, setGameInfo] = useState(0);
+    let leftAbbrev = 'hom';
+    let rightAbbrev = 'vis';
 
     useEffect(() => {
-        console.log(location.state.gameData); // result: 'some_value'
-        //gameInfo = location.state.gameData
+        
+        setGameInfo(location.state.gameData);
+
     }, [location]);
+
+    
+    if (location.state.startGoal === 'left') {
+        leftAbbrev = gameInfo.yourAbbrev;
+        rightAbbrev = gameInfo.oppAbbrev;
+
+    } else {
+        leftAbbrev = gameInfo.oppAbbrev;
+        rightAbbrev = gameInfo.yourAbbrev;
+
+    }
 
     return (
         <div className={s.statTrackingForm}>
             <div className={`${s.statGroup} ${s.goals}`}>
                 <div className={`${s.leftGoal} ${s.statCol}`}>
-                    <GoalCounter inputName={"leftGoals"} maxInc={99} size={3} inputSide={"right"} teamAbbrev={"Home"}/>
+                    <GoalCounter inputName={"leftGoals"} maxInc={99} size={3} inputSide={"right"} teamAbbrev={leftAbbrev}/>
                 </div>
                 <div className={s.labels}>
                     <p>Goals</p>
                 </div>
                 <div className={`${s.rightGoal} ${s.statCol}`}>
-                    <GoalCounter inputName={"rightGoals"} maxInc={99} size={3} inputSide={"left"} teamAbbrev={"Vis"}/>
+                    <GoalCounter inputName={"rightGoals"} maxInc={99} size={3} inputSide={"left"} teamAbbrev={rightAbbrev}/>
                 </div>
             </div>
             <div className={`${s.statGroup} ${s.passes}`}>
@@ -128,6 +141,17 @@ export default function StatTrackingForm() {
                 </div>
                 <div className={`${s.rightGoal} ${s.statCol}`}>
                     <Counter inputName={"rightRedCards"} maxInc={99} size={3} inputSide={"left"} />
+                </div>
+            </div>
+            <div className={s.gameNavigation}>
+                <div className={s.gameNavigation_link}>
+                    <Link to="/game-stats">Halftime</Link>
+                </div>
+                <div className={s.gameNavigation_link}>
+                    <input type="button" value="Clear Stats" className={s.gameNavigation_button} />
+                </div>
+                <div className={s.gameNavigation_link}>
+                    <Link to="/game-stats">End Game</Link>
                 </div>
             </div>
         </div>

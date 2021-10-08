@@ -9,7 +9,7 @@ export default function GoalSetup() {
   return (
     <div className={s.goalSetup}>
       <div>
-        <Page title={"Game Tracker"} link={"/game"} linkText={"Game"} content={StatTrackForm}/>
+        <Page title={"Game Tracker"} content={StatTrackForm}/>
       </div>
     </div>
   )

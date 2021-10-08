@@ -4,7 +4,7 @@ import history from '../../history'
 
 import s from './game-setup.module.scss'
 
-export default function GameSetupForm() { 
+export default function GameStatsTable() { 
   const initialValues = {
     gameDate: '',
     yourName: '',

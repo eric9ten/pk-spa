@@ -32,4 +32,19 @@
         }
     }
 
+    .gameNavigation {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 90%;
+        margin: 3rem auto 0;
+
+        &_link a {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+
+        }
+    }
+
 }
