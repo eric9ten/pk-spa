@@ -10,10 +10,9 @@ export default function GameStatsTable() {
     yourAbbrev: '',
     oppName: '',
     oppAbbrev: '',
+    startGoal: '',
 
   }
-
-  const [isHome, setIsHome] = React.useState( true );
 
   const [formValues, setFormValues] = useReducer (
     (curVals, newVals) => ({ ...curVals, ...newVals}), initialValues

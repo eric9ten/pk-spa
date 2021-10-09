@@ -11,6 +11,7 @@ import s from './stat-tracking-form.module.scss'
 export default function StatTrackingForm() {
     const location = useLocation();
     const [gameInfo, setGameInfo] = useState(0);
+    const [gameStats, setGameStats] = useState([]);
     let leftAbbrev = 'hom';
     let rightAbbrev = 'vis';
 
@@ -145,13 +146,19 @@ export default function StatTrackingForm() {
             </div>
             <div className={s.gameNavigation}>
                 <div className={s.gameNavigation_link}>
-                    <Link to="/game-stats">Halftime</Link>
+                    <Link to={
+                        {pathname: "/game-stats",
+                        state: {gameInfo}}
+                    }>Halftime</Link>
                 </div>
                 <div className={s.gameNavigation_link}>
                     <input type="button" value="Clear Stats" className={s.gameNavigation_button} />
                 </div>
                 <div className={s.gameNavigation_link}>
-                    <Link to="/game-stats">End Game</Link>
+                    <Link to={
+                        {pathname: "/game-stats",
+                        state: {gameInfo}}
+                    }>End Game</Link>
                 </div>
             </div>
         </div>

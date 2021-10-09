@@ -1,32 +1,34 @@
 import React, { useReducer, useState } from 'react'
 import { useEffect } from "react";
-import { ReactDOM } from 'react'
 import { useLocation } from 'react-router'
 import history from '../../history'
 
 import s from './game-setup.module.scss'
-import reactDom from 'react-dom'
 
-export default function GoalSetupForm(props) { 
-  const initialValues = {
-    selGoal: ''
-  }    
+export default function GoalSetupForm() { 
+  
+  const [gameInfo, setGameInfo] = useState([]);  
   
   const location = useLocation();
-  let gameInfo = '';
 
   useEffect(() => {
-     gameInfo = location.state.gameData
+     setGameInfo(location.state.gameData)
+
   }, [location]);
 
   function goalClick (selGoal, e) {
     e.preventDefault();
 
+    //setGameInfo(startGoal => selGoal)
+    setGameInfo( {startGoal: selGoal});
+
+    console.log("The starting goal is " + selGoal)
+    console.log("The starting goal is " + gameInfo.startGoal)
+
     history.push({
       pathname: '/game-tracking',
       state: {
-        gameData: gameInfo,
-        startGoal: selGoal
+        gameData: gameInfo
       }
     })
 

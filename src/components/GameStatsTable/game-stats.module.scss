@@ -1,6 +1,10 @@
 .gameStats {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto 1fr;
     width: 100%;
     max-width: 375px;
+    height: 90vh;
     margin: 0 auto;
     text-align: center;
 
@@ -18,12 +22,66 @@
     }
 
     &_table {
-        width: 90%;
         margin: 0 auto 1.5rem;
 
         table {
-            margin: 0;
+            margin: 0 auto;
         }
+
+    }
+
+    &_row {
+        font-size: 1.25rem;
+        line-height: 1.25;
+        height: 2.25rem;
+
+        &:nth-child(odd) {
+            background-color: #cccccc;
+        }
+        
+        &:first-child {
+            background-color: transparent;
+        }
+
+    }
+
+    &_goals {
+        font-size: 1.75rem;
+        line-height: 2;
+    }
+
+    &_stat {
+        border-bottom: 1px #424242 solid;
+
+    }
+
+    &_statLabel {
+        width: 55%;
+        border-bottom: 1px #424242 solid;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    &_groupLabel {
+        height: 2.25rem;
+        font-size: 1.25rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        vertical-align: bottom;
+    }
+
+    &_navigation {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    &_navigationLink {
+        color: #333333;
+
     }
 
 }
