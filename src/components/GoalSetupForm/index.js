@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react'
+import React, { useState } from 'react'
 import { useEffect } from "react";
 import { useLocation } from 'react-router'
 import history from '../../history'
@@ -18,9 +18,14 @@ export default function GoalSetupForm() {
 
   function goalClick (selGoal, e) {
     e.preventDefault();
+    const value = e.target.value;
+    setGameInfo({
+      ...gameInfo,
+      [gameInfo.startGoal]: selGoal
+    });
 
     //setGameInfo(startGoal => selGoal)
-    setGameInfo( {startGoal: selGoal});
+    //setGameInfo( {startGoal: selGoal});
 
     console.log("The starting goal is " + selGoal)
     console.log("The starting goal is " + gameInfo.startGoal)
