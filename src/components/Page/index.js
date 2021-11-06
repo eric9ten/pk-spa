@@ -1,13 +1,12 @@
-import React from 'react';
+import React from 'react'
 import { Link } from 'react-router-dom'
 
 import Title from './../PageTitle'
 
-import '../../sass/main.global.scss'
+import '../../assets/sass/main.scss'
 import s from './page.module.scss'
 
-function Page(props) {
-
+export default function Page(props) {
     let GameComponent = "";
     var body;
 
@@ -15,7 +14,7 @@ function Page(props) {
       if (props.content) {
         GameComponent = props.content; 
         body =  <div className={s.body}>
-                  <GameComponent />
+                  <GameComponent gameData={props.gameData} onDataChange={props.onDataChange} />
                 </div>
       } else {
         body = "";
@@ -33,14 +32,20 @@ function Page(props) {
                 {body}
               </div>
             </div>
-            <div class={s.linkWrapper}>
-              <p className={s.link}>
-                <Link to={props.link}>{props.linkText}</Link>
-              </p>
+            <div className="trackingNavigation"> 
+              { props.backText &&
+                <div classNames="trackingLink trackingLink_prev">
+                  <Link to={props.backLink}>Back <span>(to {props.backText})</span></Link>
+                </div>
+              }
+              { props.linkText &&
+                <div className={`${s.trackingLink} ${s.trackingLink_next}`}>
+                  <Link to={props.link}>Next <span>(to {props.linkText})</span></Link>
+                </div>
+              }
             </div>
           </div>
         </div>
     );
 }
 
-export default Page;

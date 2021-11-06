@@ -4,12 +4,12 @@ import GameSetupForm from '../../components/GameSetupForm'
 
 import s from './game-setup.module.scss' 
 
-export default function  GameSetup() {
+export default function GameSetup(props) {
 
   return (
     <div className={s.gameSetup}>
       <div>
-        <Page title={"Game Setup"} link={"/goal-setup"} linkText={"Goal Setup"} content={GameSetupForm}/>
+        <Page title={"Game Setup"} link={"/goal-setup"} linkText={"Goal Setup"} content={GameSetupForm} />
       </div>
     </div>
   )

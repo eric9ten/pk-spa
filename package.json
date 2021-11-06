@@ -3,21 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^1.6.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "node-sass": "^6.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-redux": "^7.2.5",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
+    "redux": "^4.1.1",
+    "sass-resources-loader": "^2.2.4",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "sass": "sass src/Sass:src/Css --watch --source-map",
+    "sass": "sass src/assets/Sass:src/Css --watch --source-map",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -39,6 +42,9 @@
     ]
   },
   "devDependencies": {
-    "sass": "^1.39.2"
+    "css-loader": "^6.5.1",
+    "sass": "^1.43.4",
+    "sass-loader": "^12.3.0",
+    "style-loader": "^3.3.1"
   }
 }
