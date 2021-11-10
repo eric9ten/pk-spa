@@ -1,73 +1,72 @@
-import React, { useReducer, useState } from 'react'
+import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+
+import DateTextbox from '../DateTextbox'
+import InputTextbox from '../InputTextbox'
+import HomeCheckbox from '../HomeCheckbox'
 import history from '../../history'
+
+import { changeHalf } from './gameSetupSlice'
 
 import s from './game-setup.module.scss'
 
-export default function GameStatsTable() { 
-  const initialValues = {
-    gameDate: '',
-    yourName: '',
-    yourAbbrev: '',
-    oppName: '',
-    oppAbbrev: '',
-    startGoal: '',
-
-  }
-
-  const [formValues, setFormValues] = useReducer (
-    (curVals, newVals) => ({ ...curVals, ...newVals}), initialValues
-  )
-  const { gameDate, yourName, yourAbbrev, oppName, oppAbbrev } = formValues;
+function GameSetupForm(props) {  
+  const half = useSelector((state) => state.gameSetupForm)
+  const dispatch = useDispatch()
   const [submitting, setSubmitting] = useState(false);
-  //const [isValid, checkIsValid] = useState(false);
+  
+  let isValid = true
 
   function handleChange(event) {
     const isCheckbox = event.target.type === 'checkbox';
-    const { name, value } = event.target
-    
-    setFormValues({
-      [name]: isCheckbox ? event.target.checked : value
-     })
+    const name = event.target.name
 
-    //isValid = checkIsValid()
+    const value = isCheckbox ? event.target.checked : event.target.value
+
+    props.onChangeData(name, value)
 
   }
 
   function handleSubmit (event) {
-    
     event.preventDefault();
     setSubmitting(true);
 
-    //if(isValid) {
+    dispatch(changeHalf(1))
+
+    if(isValid) {
       history.push({
         pathname: '/goal-setup',
-        state: {gameData: formValues}
       })
-    //}
+    } else {
+      //props.onError(errMsg)    
+    }
     setSubmitting(false);
   }
 
   function checkIsValid () {
+    let errMsg = ''
+    console.log("is Valid is: " + isValid)
 
-    //isValid = gameDate === '' ? false : true
-    if (yourName === '') {
-      console.log ("yourName is not valid")
-      return
-    }
-    if (yourAbbrev === '') {
-      console.log ("yourAbbrev is not valid")
-      return
-    }
-    if (oppName === '') {
-      console.log ("oppName is not valid")
-      return
-    }
-    if (oppAbbrev ==='') {
-      console.log ("oppAbbrev is not valid")
-      return
+    if (props.gameDate === '') {
+      errMsg = "The game date cannot be blank."
+      
+    } else if (props.yourName === '') {
+      errMsg = "Your Team Name cannot be blank."
+      
+    } else if (props.yourAbbrev === '') {
+      errMsg = "Your Team Abbrev cannot be blank."
+      
+    } else if (props.oppName === '') {
+      errMsg = "The Opponent Team Name cannot be blank."
+      
+    } else if (props.oppAbbrev ==='') {
+      errMsg = "The Opponent Abbrev cannot be blank."
+      
+    } else {
+      isValid = true
     }
 
-    //isValid = true
+    return errMsg
 
   }
 
@@ -75,50 +74,43 @@ export default function GameStatsTable() {
     <div className={s.gameSetupFormContainer}>
       <form className={s.gameSetupForm} onSubmit={handleSubmit} disabled={submitting}>
         <div className={s.inputWrapper}>        
-          <label>Date:
-            <input type="date" name="gameDate" value={gameDate} onChange={handleChange} />        
-          </label>
+          <DateTextbox />
         </div>
         <div className={s.teamWrapper}>
           <div className={s.teamName}>
             <p>Your Team:</p>
           </div>
-          <div className={s.inputWrapper}>        
-            <label>Name:
-              <input type="text" name="yourName" value={yourName} onChange={handleChange} />        
-            </label>
-          </div>
-          <div className={s.inputWrapper}>        
-            <label>Abbrev:
-              <input type="text" name="yourAbbrev" value={yourAbbrev} onChange={handleChange} />        
-            </label>
+          <div className={s.inputWrapper}>
+            <InputTextbox inputName="yourName" label="Name" />
           </div>
           <div className={s.inputWrapper}>
-            <div className={s.toggleLabel}><p>Visitor</p></div>
-            <input type="checkbox" name="isHome" id="toggle" className={s.offscreen} onChange={handleChange} />
-            <label htmlFor="toggle" className={s.switch}></label>
-            <div className={s.toggleLabel}><p>Home</p></div>
+            <InputTextbox inputName="yourAbbrev" label="Abbrev" />
+          </div>
+          <div className={s.inputWrapper}>
+            <HomeCheckbox />
           </div>
         </div>
         <div className={s.teamWrapper}>
           <div className={s.teamName}>
             <p>Opponent:</p>
           </div>
-          <div className={s.inputWrapper}>        
-            <label>Name:
-              <input type="text" name="oppName" value={oppName} onChange={handleChange} />        
-            </label>
+          <div className={s.inputWrapper}>
+            <InputTextbox inputName="oppName" label="Name" />
           </div>
-          <div className={s.inputWrapper}>        
-            <label>Abbrev:
-              <input type="text" name="oppAbbrev" value={oppAbbrev} onChange={handleChange} />   
-            </label>
+          <div className={s.inputWrapper}>
+            <InputTextbox inputName="oppAbbrev" label="Abbrev" />
           </div>
         </div>
           <div className={s.inputWrapper}>  
-            <input type="submit" value="Submit" disabled={submitting} />
+            <input type="submit" value="Next" disabled={submitting} onClick={handleSubmit} />
           </div>
+          <p className={props.error ? "error active" : "error"}>
+            {props.error}
+          </p>
       </form>
     </div>
   );
 }
+
+
+export default GameSetupForm;

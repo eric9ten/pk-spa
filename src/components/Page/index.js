@@ -1,13 +1,12 @@
-import React from 'react';
+import React from 'react'
 import { Link } from 'react-router-dom'
 
 import Title from './../PageTitle'
+import GameNavigation from './../GameNavigation'
 
-import '../../sass/main.global.scss'
 import s from './page.module.scss'
 
-function Page(props) {
-
+export default function Page(props) {
     let GameComponent = "";
     var body;
 
@@ -15,7 +14,7 @@ function Page(props) {
       if (props.content) {
         GameComponent = props.content; 
         body =  <div className={s.body}>
-                  <GameComponent />
+                  <GameComponent gameData={props.gameData} onDataChange={props.onDataChange} />
                 </div>
       } else {
         body = "";
@@ -33,14 +32,13 @@ function Page(props) {
                 {body}
               </div>
             </div>
-            <div class={s.linkWrapper}>
-              <p className={s.link}>
-                <Link to={props.link}>{props.linkText}</Link>
-              </p>
-            </div>
+            <GameNavigation 
+              backLink={props.backLink}
+              backText={props.backText}
+              link={props.link}
+              linkText={props.linkText}
+            />
           </div>
         </div>
     );
 }
-
-export default Page;

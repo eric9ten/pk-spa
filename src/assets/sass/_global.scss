@@ -1,0 +1,143 @@
+/*
+============================================================================
+HOT Variables
+
+This is where you will use CSS Variables. Variables that are dynamic
+
+Colors, Typography, Border-Radi, Transitions, CSS Grid
+=============================================================================
+*/
+
+:root {
+	//** Colors ** //
+	//primary - named colors, font colors, etc.
+	--color-light-blue-1: #f7f9fb;
+	--color-light-blue-2: #bbcedf;
+	--color-blue: #5b89b4;
+	--color-dark-blue: #4d7499;
+
+	//black & white
+	--color-black: #000000;
+	--color-white: #ffffff;
+
+	//neutral
+	--color-n1: #b3b3b3;
+	--color-n2: #808080;
+	--color-n3: #4d4d4d;
+	--color-n4: #3a3a3a;
+
+	//State Colors//
+
+	//** Font **//
+	//font families
+	--font1: 'Dosis';
+	--font2: 'Open Sans';
+
+	//body font size
+	--font-base-size: 16px;
+
+	//transition
+	--expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+	//transition-timing
+	--default-timing: 0.6s;
+}
+
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+	box-sizing: border-box;
+	font-size: var(--font-base-size);
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-overflow-scrolling: touch;
+	margin-bottom: 0;
+}
+
+html,
+body {
+	color: var(--color-n4);
+	// width: 100%;
+	// height: 100%;
+	// height: 5000px;
+}
+
+ul {
+	@include media-query($medium-up) {
+		padding-left: 64px;
+		margin-bottom: 48px;
+	}
+	li {
+		position: relative;
+		margin-top: 24px;
+		list-style: none;
+
+		bold {
+			font-weight: 700;
+		}
+
+		&::before {
+			content: '•';
+			position: absolute;
+			top: 8px;
+			left: -16px;
+			font-size: 28px;
+			color: var(--color-blue);
+			line-height: 0;
+
+			@include media-query($medium-up) {
+				left: -24px;
+			}
+		}
+	}
+}
+
+.test {
+	font-size: 4rem;
+}
+/*
+============================================================================
+This is the syntax for global class names:
+
+:global(.class-name) {
+    key: value
+    ...
+}
+=============================================================================
+*/
+
+:global(.container) {
+	width: calc(100% - 32px);
+	max-width: 1080px;
+	margin: 0 auto;
+
+	@include media-query($medium-up) {
+		width: calc(100% - 64px);
+	}
+}
+
+:global(.wrapper) {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-content: center;
+	width: 100%;
+	max-width: 1080px;
+	height: 100vw;
+	margin: 0 auto;
+
+}
+
+:global(.h7) {
+	font-family: var(--avant);
+	text-transform: uppercase;
+	font-weight: 500;
+	@include fluid-type($min-width, $max-width, 14px, 16px);
+	@include fluid-line($min-width, $max-width, 16px, 18px);
+	@include fluid-letter($min-width, $max-width, 0.5px, 0.7px);
+}

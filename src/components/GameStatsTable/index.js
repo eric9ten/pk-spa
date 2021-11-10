@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
+import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
@@ -7,35 +8,81 @@ import history from '../../history'
 
 import s from './game-stats.module.scss'
 
-export default function GameStatsTable() { 
+export default function GameStatsTable(props) { 
+  const gameDate = useSelector((state) => state.dateTextbox)
+  const isHome = useSelector((state) => state.isHome)
+  //const curHalf = useSelector((state) => state.gameHalf)
+  const yourAbb = useSelector((state) => state.inputTextbox.entities.yourAbbrev)
+  const oppAbb = useSelector((state) => state.inputTextbox.entities.oppAbbrev)
+  const goalCount = useSelector((state) => state.goalCounter)
+  const inputCount = useSelector((state) => state.inputCounter)
   const location = useLocation();
-  const [gameData, setGameInfo] = useState([]);
+  
+  const currHalf = location.trackingProps.half
+  const half = currHalf == 1 ? "Halftime" : "Game Over"
 
   let homeAbbrev = 'hhhh';
   let visAbbrev = 'vvvv';
-
-  useEffect(() => {
-      
-      setGameInfo(location.state.gameInfo);
-
-  }, [location]);
-
+  let leftGoals, leftPasses, leftShots, leftCKs, leftGKs, leftTackles, leftOff, leftFouls, leftYCs, leftRCs = 0
+  let rightGoals, rightPasses, rightShots, rightCKs, rightGKs, rightTackles, rightOff, rightFouls, rightYCs, rightRCs = 0
   
-  if (gameData.isHome) {
-    homeAbbrev = gameData.yourAbbrev;
-    visAbbrev = gameData.oppAbbrev;
+  if (isHome) {
+    homeAbbrev = yourAbb;
+    leftGoals = "teamAGoals"
+    leftPasses = "teamAPasses"
+    leftShots = "teamAShots"
+    leftCKs = "teamACorners"
+    leftGKs = "teamAGoalKicks"
+    leftTackles = "teamATackles"
+    leftOff = "teamAOffsides"
+    leftFouls = "teamAFouls"
+    leftYCs = "teamAYellowCards"
+    leftRCs = "teamARedCards"
+
+    visAbbrev = oppAbb;
+    rightGoals = "teamBGoals"
+    rightPasses = "teamBPasses"
+    rightShots = "teamBShots"
+    rightCKs = "teamBCorners"
+    rightGKs = "teamBGoalKicks"
+    rightTackles = "teamBTackles"
+    rightOff = "teamBOffsides"
+    rightFouls = "teamBFouls"
+    rightYCs = "teamBYellowCards"
+    rightRCs = "teamBRedCards"
 
   } else {
-    homeAbbrev = gameData.oppAbbrev;
-      visAbbrev = gameData.yourAbbrev;
+    homeAbbrev = oppAbb;
+    leftGoals = "teamBGoals"
+    leftPasses = "teamBPasses"
+    leftShots = "teamBShots"
+    leftCKs = "teamBCorners"
+    leftGKs = "teamBGoalKicks"
+    leftTackles = "teamBTackles"
+    leftOff = "teamBOffsides"
+    leftFouls = "teamBFouls"
+    leftYCs = "teamBYellowCards"
+    leftRCs = "teamBRedCards"
+
+    visAbbrev = yourAbb;
+    rightGoals = "teamAGoals"
+    rightPasses = "teamAPasses"
+    rightShots = "teamAShots"
+    rightCKs = "teamACorners"
+    rightGKs = "teamAGoalKicks"
+    rightTackles = "teamATackles"
+    rightOff = "teamAOffsides"
+    rightFouls = "teamAFouls"
+    rightYCs = "teamAYellowCards"
+    rightRCs = "teamARedCards"
 
   }
 
   return (
     <div className={s.gameStats}>
       <div className={s.gameStats_title}>
-        <h2>Half</h2>
-        <h3>{gameData.gameDate}</h3>
+        <h2>{half}</h2>
+        <h3>{gameDate.value}</h3>
       </div>
       <div className={s.gameStats_table}>
         <table>
@@ -45,67 +92,79 @@ export default function GameStatsTable() {
             <th>{visAbbrev}</th>
           </tr>
           <tr className={s.gameStats_row}>
-            <td className={`${s.gameStats_stat} ${s.gameStats_goals}`}>99</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_goals}`}>{goalCount.entities[leftGoals]}</td>
             <td>-</td>
-            <td className={`${s.gameStats_stat} ${s.gameStats_goals}`}>99</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_goals}`}>{goalCount.entities[rightGoals]}</td>
           </tr>
           <tr className={s.gameStats_row}>
-            <td className={`${s.gameStats_stat} ${s.gameStats_passes}`}>999</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_passes}`}>{inputCount.entities[leftPasses]}</td>
             <td className={s.gameStats_statLabel}>Passes</td>
-            <td className={`${s.gameStats_stat} ${s.gameStats_passes}`}>999</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_passes}`}>{inputCount.entities[rightPasses]}</td>
           </tr>
           <tr className={s.gameStats_row}>
-            <td className={`${s.gameStats_stat} ${s.gameStats_shots}`}>99</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_shots}`}>{inputCount.entities[leftShots]}</td>
             <td className={s.gameStats_statLabel}>Shots</td>
-            <td className={`${s.gameStats_stat} ${s.gameStats_shots}`}>99</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_shots}`}>{inputCount.entities[rightShots]}</td>
           </tr>
           <tr className={s.gameStats_row}>
-            <td className={`${s.gameStats_stat} ${s.gameStats_corners}`}>99</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_corners}`}>{inputCount.entities[leftCKs]}</td>
             <td className={s.gameStats_statLabel}>Corner Kicks</td>
-            <td className={`${s.gameStats_stat} ${s.gameStats_corners}`}>99</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_corners}`}>{inputCount.entities[rightCKs]}</td>
           </tr>
           <tr className={s.gameStats_row}>
-            <td className={`${s.gameStats_stat} ${s.gameStats_goalKicks}`}>99</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_goalKicks}`}>{inputCount.entities[leftGKs]}</td>
             <td className={s.gameStats_statLabel}>Goal Kicks</td>
-            <td className={`${s.gameStats_stat} ${s.gameStats_goalKicks}`}>99</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_goalKicks}`}>{inputCount.entities[rightGKs]}</td>
           </tr>
           <tr className={s.gameStats_row}>
-            <td className={`${s.gameStats_stat} ${s.gameStats_tackles}`}>99</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_tackles}`}>{inputCount.entities[leftTackles]}</td>
             <td className={s.gameStats_statLabel}>Tackles</td>
-            <td className={`${s.gameStats_stat} ${s.gameStats_tackles}`}>99</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_tackles}`}>{inputCount.entities[rightTackles]}</td>
           </tr>
           <tr className={s.gameStats_row}>
-            <td className={`${s.gameStats_stat} ${s.gameStats_offsides}`}>99</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_offsides}`}>{inputCount.entities[leftOff]}</td>
             <td className={s.gameStats_statLabel}>Offsides</td>
-            <td className={`${s.gameStats_stat} ${s.gameStats_offsides}`}>99</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_offsides}`}>{inputCount.entities[rightOff]}</td>
           </tr>
           <tr className={s.gameStats_row}>
-            <td className={`${s.gameStats_stat} ${s.gameStats_fouls}`}>99</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_fouls}`}>{inputCount.entities[leftFouls]}</td>
             <td className={s.gameStats_statLabel}>Fouls</td>
-            <td className={`${s.gameStats_stat} ${s.gameStats_fouls}`}>99</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_fouls}`}>{inputCount.entities[rightFouls]}</td>
           </tr>
           <tr className={`${s.gameStats_row} ${s.gameStats_groupLabel}`}>
-            <td colspan="3" className={s.gamesStat_label}>Cards</td>
+            <td colSpan="3" className={s.gamesStat_label}>Cards</td>
           </tr>
           <tr className={s.gameStats_row}>
-            <td className={`${s.gameStats_stat} ${s.gameStats_yellows}`}>99</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_yellows}`}>{inputCount.entities[leftYCs]}</td>
             <td className={s.gameStats_statLabel}>Yellows</td>
-            <td className={`${s.gameStats_stat} ${s.gameStats_yellows}`}>99</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_yellows}`}>{inputCount.entities[rightYCs]}</td>
           </tr>
           <tr className={s.gameStats_row}>
-            <td className={`${s.gameStats_stat} ${s.gameStats_reds}`}>99</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_reds}`}>{inputCount.entities[leftRCs]}</td>
             <td className={s.gameStats_statLabel}>Red</td>
-            <td className={`${s.gameStats_stat} ${s.gameStats_reds}`}>99</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_reds}`}>{inputCount.entities[rightRCs]}</td>
           </tr>
         </table>
       </div>
-      <div className={s.gameStats_navigation}>
-        <div className={s.gameStats_navigationlink}>
-            <Link to="/game-tracking">&larr; Continue Scoring</Link>
-        </div>
-        <div className={s.gameStats_navigationlink}>
-            <Link to="/game-tracking">Start Second Half</Link>
-        </div>
+      <div className={s.gameNavigation}>
+          <div className={s.gameNavigation_link}>
+              <Link to={{
+                pathname: '/game-tracking',  
+                trackingProps: {
+                  half: currHalf
+                }
+              }}>&larr; Continue Scoring</Link>
+          </div>
+          { currHalf === 2 &&
+            <div className={s.gameNavigation_link}>
+                <Link to={{
+                  pathname: '/game-tracking', 
+                  trackingProps: {
+                    half: 2
+                  }
+                }}>Start Second Half</Link>
+            </div>
+          }
       </div>
     </div>
   );

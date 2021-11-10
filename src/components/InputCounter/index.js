@@ -1,27 +1,44 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { changeAmount } from './inputCounterSlice'
 
 import s from './input-counter.module.scss'
 
-
 export default function InputCounter(props) {
-    
-
 	const inputSide = props.inputSide === 'right' ? s.inputRight : s.inputLeft
-    const [count, setCount] = React.useState( 0 );
+	const eleName = props.inputName
+    const counter = useSelector((state) => state.inputCounter)
+    const dispatch = useDispatch()
+    
+    let tempCount = 0
 
     function incrementCount(e) {
-        setCount(count +1)
+        tempCount = counter.entities[eleName] + 1;
+        
+        dispatch(changeAmount(eleName, tempCount))
     }
 
     function decrementCount(e) {
-        count > 0 ? setCount(count -1) : setCount(0)
+        tempCount = counter.entities[eleName] > 0 ? counter.entities[eleName] - 1 : 0
+        
+        dispatch(changeAmount(eleName, tempCount))
+
+    }
+
+    function handleChange (e) {
+        const fieldValue = e.target.value
+        
+        dispatch(changeAmount(eleName, fieldValue))
     }
 
     return (
         <div className={ `${s.inputCounter} ${inputSide}` }>
-            <input type="button" value="-" className={` ${s.counterButton} ${s.buttonMinus} `} onClick={decrementCount}/>
-            <input type="button" value="+" className={`${s.counterButton} ${s.buttonPlus}`} onClick={incrementCount}/>
-            <input type="number" step="1" max={props.maxInc} value={count} name={props.inputName} size={props.size} className={s.input} />
+            <input type="button" value="-" className={` ${s.counterButton} ${s.buttonMinus} `} aria-label="Decrement value"
+                onClick={decrementCount} />
+            <input type="button" value="+" className={`${s.counterButton} ${s.buttonPlus}`} aria-label="Increment value"
+                 onClick={incrementCount} />
+            <input type="number" step="1" max={props.maxInc} value={counter.entities[eleName]} name={eleName} size={props.size} 
+                className={s.input} onChange={handleChange} />
         </div>
     )
 }

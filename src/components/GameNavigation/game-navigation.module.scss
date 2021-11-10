@@ -1,0 +1,37 @@
+@import '../../assets/sass/config/config.scss';
+
+.gameNavigation{
+
+    .trackingNavigation {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: var(--avant);
+        text-transform: uppercase;
+        font-weight: 500;
+    
+        @include fluid-type($min-width, $max-width, 14px, 16px);
+        @include fluid-line($min-width, $max-width, 16px, 18px);
+        @include fluid-letter($min-width, $max-width, 0.5px, 0.7px);
+    
+        .trackingLink {
+            padding-bottom: .25rem;
+            
+            a {
+                text-decoration: none;
+    
+                span {
+                    font-size: .75em;
+                }
+            }
+    
+            &_prev {
+                border-bottom: orange 2px dotted;
+            }
+    
+            &_next {
+                border-bottom: orange 2px solid;
+            }
+        }
+    }
+}
