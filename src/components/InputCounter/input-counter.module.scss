@@ -1,31 +1,59 @@
+@import '../../assets/sass/config/config.scss';
+
 .inputCounter {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     max-width: 250px;
+    font-family: var(--font2);
     font-size: 1.2rem;
 
     &.inputRight {
-        .buttonMinus { 
-            order: 1
-        }
-        .buttonPlus { 
-            order: 2
+
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            order: 1;
+
+            .buttonMinus { 
+                order: 1;
+                border-radius: 5px 0 0 5px;
+
+            }
+            
+            .buttonPlus { 
+                order: 2;
+                border-radius: 0 5px 5px 0;
+
+            }
+                
         }
         .input { 
-            order: 3
+            order: 2
         }
     }
 
     &.inputLeft {
-        .buttonMinus { 
-            order: 2
-        }
-        .buttonPlus { 
-            order: 3
+
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            order: 2;
+
+            .buttonMinus { 
+                order: 1;
+                border-radius: 5px 0 0 5px;
+            }
+
+            .buttonPlus { 
+                order: 2;
+                border-radius: 0 5px 5px 0;
+            }
         }
         .input { 
-            order: 1
+            order: 1;
         }
     }
 
@@ -51,5 +79,15 @@
         align-items: center;
         min-width: 2rem;
         min-height: 2rem;
+        border-width: 1px;
+        border-style: solid;
+        border-color: #000000;
+
+        &:focus {
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
+            border-bottom-color: var(--color-orange);
+            outline: none;
+        }
     }
 }

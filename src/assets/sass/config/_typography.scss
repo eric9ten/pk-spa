@@ -70,7 +70,7 @@ h6 {
 }
 
 p {
-	font-family: var(--carlson);
+	font-family: var(--font1);
 	font-weight: 400;
 	@include fluid-type($min-width, $max-width, 16px, 22px);
 	@include fluid-line($min-width, $max-width, 26px, 34px);
@@ -78,16 +78,16 @@ p {
 }
 
 a {
-	color: var(--color, var(--color-n4));
-	text-decoration-color: var(--color-blue);
-	text-decoration-thickness: 1px;
-	transition: all var(--default-timing) var(--expo-out);
-	margin-bottom: -2px;
+	color: var(--color-n4);
+	font-weight: 500;
+	text-decoration: none;
+	border-color: var(--color-link);
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
 
 	@include media-query($large-up) {
 		&:hover {
 			background: var(--bg, var(--color-light-blue-1));
-			text-decoration-thickness: 2px;
 		}
 	}
 }

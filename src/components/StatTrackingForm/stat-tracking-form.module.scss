@@ -1,3 +1,5 @@
+@import '../../assets/sass/config/config.scss';
+
 .statTrackingForm {
 
     .statGroup {
@@ -32,19 +34,59 @@
         }
     }
 
-    .gameNavigation {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        width: 95%;
-        margin: 3rem auto 0;
-
-        &_link a {
-            font-size: 1.25rem;
+    .resetButton {
+        
+        &_button {
+            padding: .35rem;
+            border: 1px solid var(--color-secondary);
+            background-color: var(--color-white);
+            color: var(--color-secondary);
+            font-family: var(--font2);
             text-transform: uppercase;
 
         }
     }
 
+    .gameNavigation {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 95%;
+        margin: 1rem auto 2rem;
+
+
+        .trackingNavigation {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            text-transform: uppercase;
+        
+            @include fluid-type($min-width, $max-width, 14px, 16px);
+            @include fluid-line($min-width, $max-width, 16px, 18px);
+            @include fluid-letter($min-width, $max-width, 0.5px, 0.7px);
+    
+            &_link {
+                padding-bottom: .25rem;
+                
+                a {
+                    text-decoration: none;
+        
+                    span {
+                        font-size: .75em !important;
+                    }
+                }
+        
+                &_prev {
+    
+                    a {
+                        border-bottom-style: dotted;
+                    }
+                    
+    
+                }
+            }
+        }
+    }
 }

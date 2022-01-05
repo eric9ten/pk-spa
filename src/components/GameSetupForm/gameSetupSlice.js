@@ -7,9 +7,8 @@ export const gameSetupFormSlice = createSlice({
   },
   reducers: {
     changeHalf: (state, action) => {
-
       state.value = action.payload
-    }
+    },
   },
 })
 

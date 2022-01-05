@@ -33,10 +33,12 @@ export default function InputCounter(props) {
 
     return (
         <div className={ `${s.inputCounter} ${inputSide}` }>
-            <input type="button" value="-" className={` ${s.counterButton} ${s.buttonMinus} `} aria-label="Decrement value"
-                onClick={decrementCount} />
-            <input type="button" value="+" className={`${s.counterButton} ${s.buttonPlus}`} aria-label="Increment value"
-                 onClick={incrementCount} />
+            <div className={s.buttons}>
+                <input type="button" value="-" className={` ${s.counterButton} ${s.buttonMinus} `} aria-label="Decrement value"
+                    onClick={decrementCount} />
+                <input type="button" value="+" className={`${s.counterButton} ${s.buttonPlus}`} aria-label="Increment value"
+                    onClick={incrementCount} />
+            </div>
             <input type="number" step="1" max={props.maxInc} value={counter.entities[eleName]} name={eleName} size={props.size} 
                 className={s.input} onChange={handleChange} />
         </div>

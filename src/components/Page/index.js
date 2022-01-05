@@ -27,7 +27,7 @@ export default function Page(props) {
         <div className={s.page}>
           <div className={s.container}>
             <div className={s.wrapper}>
-              <Title title={props.title} />
+                { props.title && <Title title={props.title} /> }
               <div className={s.body}>
                 {body}
               </div>

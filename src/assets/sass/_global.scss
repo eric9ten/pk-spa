@@ -1,47 +1,4 @@
-/*
-============================================================================
-HOT Variables
-
-This is where you will use CSS Variables. Variables that are dynamic
-
-Colors, Typography, Border-Radi, Transitions, CSS Grid
-=============================================================================
-*/
-
-:root {
-	//** Colors ** //
-	//primary - named colors, font colors, etc.
-	--color-light-blue-1: #f7f9fb;
-	--color-light-blue-2: #bbcedf;
-	--color-blue: #5b89b4;
-	--color-dark-blue: #4d7499;
-
-	//black & white
-	--color-black: #000000;
-	--color-white: #ffffff;
-
-	//neutral
-	--color-n1: #b3b3b3;
-	--color-n2: #808080;
-	--color-n3: #4d4d4d;
-	--color-n4: #3a3a3a;
-
-	//State Colors//
-
-	//** Font **//
-	//font families
-	--font1: 'Dosis';
-	--font2: 'Open Sans';
-
-	//body font size
-	--font-base-size: 16px;
-
-	//transition
-	--expo-out: cubic-bezier(0.16, 1, 0.3, 1);
-
-	//transition-timing
-	--default-timing: 0.6s;
-}
+@import './config/variables';
 
 /* apply a natural box layout model to all elements, but allowing components to change */
 html {
@@ -93,6 +50,16 @@ ul {
 			@include media-query($medium-up) {
 				left: -24px;
 			}
+		}
+	}
+}
+
+nav {
+	ul {
+		padding: 0;
+
+		li::before {
+			content: '';
 		}
 	}
 }

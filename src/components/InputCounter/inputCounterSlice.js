@@ -24,11 +24,25 @@ export const inputCounterSlice = createSlice({
           payload: { inputID, inputValue }
         }
       }
+    },
+    resetAmount: {
+      reducer(state, action) {
+        const { inputID } = action.payload
+        
+        state.entities[inputID] = 0
+        //state.value = action.payload;
+
+      },
+      prepare (inputID, inputValue) {
+        return {
+          payload: { inputID, inputValue }
+        }
+      }
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { changeAmount } = inputCounterSlice.actions
+export const { changeAmount, resetAmount } = inputCounterSlice.actions
 
 export default inputCounterSlice.reducer

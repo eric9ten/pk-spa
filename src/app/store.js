@@ -8,7 +8,10 @@ import inputCounterReducer from '../components/InputCounter/inputCounterSlice'
 import radioTwoCHoiceReducer from '../components/RadioTwoChoice/radioTwoChoiceSlice'
 import goalCounterReducer from '../components/GoalCounter/goalCounterSlice'
 
-export default configureStore({
+
+export default (configureStore)({
+  
+
   reducer: {
     gameHalf: gameSetupReducer,
     dateTextbox: dateTextboxReducer,

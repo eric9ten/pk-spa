@@ -1,7 +1,9 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router'
+import { resetCount } from '../GoalCounter/goalCounterSlice'
+import { resetAmount } from '../InputCounter/inputCounterSlice'
 
 import Counter from '../InputCounter'
 import GoalCounter from '../GoalCounter'
@@ -13,6 +15,7 @@ function StatTrackingForm(props) {
     const startGoal = useSelector((state) => state.startingGoal)
     const yourAbb = useSelector((state) => state.inputTextbox.entities.yourAbbrev)
     const oppAbb = useSelector((state) => state.inputTextbox.entities.oppAbbrev)
+    const dispatch = useDispatch()
 
     let currHalf = 1 
     if (location.trackingProps) {
@@ -28,6 +31,7 @@ function StatTrackingForm(props) {
 
     if (currHalf === 1) {
         statsSide = startGoal
+        
     } else {
         if (startGoal === 'left') {
             statsSide ='right'
@@ -87,6 +91,32 @@ function StatTrackingForm(props) {
         rightFouls = "teamAFouls"
         rightYCs = "teamAYellowCards"
         rightRCs = "teamARedCards"
+    }
+
+    function resetForm () {
+        //left stats
+        dispatch(resetCount(leftGoals))
+        dispatch(resetAmount(leftPasses))
+        dispatch(resetAmount(leftShots))
+        dispatch(resetAmount(leftCKs))
+        dispatch(resetAmount(leftGKs))
+        dispatch(resetAmount(leftTackles))
+        dispatch(resetAmount(leftOff))
+        dispatch(resetAmount(leftFouls))
+        dispatch(resetAmount(leftYCs))
+        dispatch(resetAmount(leftRCs))
+
+        dispatch(resetCount(rightGoals))
+        dispatch(resetAmount(rightPasses))
+        dispatch(resetAmount(rightShots))
+        dispatch(resetAmount(rightCKs))
+        dispatch(resetAmount(rightGKs))
+        dispatch(resetAmount(rightTackles))
+        dispatch(resetAmount(rightOff))
+        dispatch(resetAmount(rightFouls))
+        dispatch(resetAmount(rightYCs))
+        dispatch(resetAmount(rightRCs))
+
     }
 
 
@@ -203,28 +233,32 @@ function StatTrackingForm(props) {
                     <Counter inputName={rightRCs} maxInc={99} size={3} inputSide={"left"} />
                 </div>
             </div>
-            <div className={s.trackingNavigation}>
-                { currHalf === 1 &&
-                <div className={s.trackingNavigation_link}>
-                    <Link to={{
-                        pathname: '/game-stats',  
-                        trackingProps: {
-                            half: currHalf
-                        }
-                    }}>Halftime</Link>
-                </div>
-                }
-                <div className={s.trackingLink}>
-                    <input type="button" value="Clear Stats" className={s.trackingNavigation_button} />
-                </div>
-                <div className={s.trackingLink}>
-                    <Link to={{pathname: '/game-stats',  
-                        trackingProps: {
-                            half: currHalf
-                        }}
-                    }>End Game</Link>
-                </div>
+
+            <div className={s.resetButton}>
+                <input type="button" value="Clear Stats" className={s.resetButton_button} onClick={resetForm}/>
             </div>
+
+            <nav className={s.gameNavigation}>
+                <div className={s.trackingNavigation}>
+                    { currHalf === 1 &&
+                        <div className={s.trackingNavigation_link}>
+                            <Link to={{
+                                pathname: '/game-stats',  
+                                trackingProps: {
+                                    half: currHalf
+                                }
+                            }}>Halftime</Link>
+                        </div>
+                    }
+                        <div className={s.trackingNavigation_link}>
+                            <Link to={{pathname: '/game-stats',  
+                                trackingProps: {
+                                    half: currHalf
+                                }}
+                            }>End Game</Link>
+                        </div>
+                </div>
+            </nav>
         </div>
     )
 }

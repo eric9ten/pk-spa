@@ -1,7 +1,7 @@
-import React, { useReducer, useState } from 'react'
+import React, { useState } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { createStore } from 'redux'
-import { Provider } from 'react-redux';
+//import { createStore } from 'redux'
+//import { Provider } from 'react-redux';
 import { connect } from 'react-redux'
 
 import HomePage from './pages/HomePage/HomePage'
@@ -23,10 +23,10 @@ function App() {
     (curVals, newVals) => ({ ...curVals, ...newVals}), initialValues
   )*/
 
-  const { gameDate, yourName, yourAbbrev, oppName, oppAbbrev,
+  /*const { gameDate, yourName, yourAbbrev, oppName, oppAbbrev,
     teamAGoals, teamAPasses, teamAShots, teamACorners, teamAGoalKicks, teamATackles, teamAOffsides, teamAFouls, teamAYellowCards, teamARedCards,
     teamBGoals, teamBPasses, teamBShots, teamBCorners, teamBGoalKicks, teamBTackles, teamBOffsides, teamBFouls, teamBYellowCards, teamBRedCards
-  } = gameData;
+  } = gameData;*/
   
     
   function updateGameData(name, value) {

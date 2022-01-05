@@ -9,7 +9,7 @@ export default function HomePage() {
 
   return (
     <div className={s.homePage}>
-      <Page title={"Home Page"} link={"/game-setup"} linkText={"Game Setup"} content={Logo}/>
+      <Page link={"/game-setup"} linkText={"Game Setup"} content={Logo}/>
     </div>
   )
 }
