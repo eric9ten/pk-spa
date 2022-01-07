@@ -19,20 +19,28 @@
             padding-bottom: .25rem;
             
             a {
+                color: var(--color-n4);
                 text-decoration: none;
     
                 span {
                     font-size: .75em !important;
                 }
+
             }
     
             &_prev {
-
                 a {
+                    color: var(--color-n4);
                     border-bottom-style: dotted;
                 }
                 
-
+            }
+    
+            &_next {
+                a {
+                    color: var(--color-n4);
+                }
+                
             }
         }
     }

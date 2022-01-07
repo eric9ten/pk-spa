@@ -3,7 +3,7 @@
 Use the fluid typography mixins (size, line-height, letter) to set styles
 =============================================================================
 */
-
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Dosis:wght@400;700&family=Open+Sans&display=swap');
 
 h1,
@@ -12,7 +12,9 @@ h3,
 h4,
 h5,
 h6,
-h7 {
+h7, 
+th,
+td {
 	font-family: var(--font1);
 	text-transform: uppercase;
 }
@@ -78,16 +80,22 @@ p {
 }
 
 a {
-	color: var(--color-n4);
+	color: var(--color-link);
+	font-family: var(--font2), sans-serif;
 	font-weight: 500;
 	text-decoration: none;
 	border-color: var(--color-link);
 	border-bottom-width: 2px;
 	border-bottom-style: solid;
 
-	@include media-query($large-up) {
-		&:hover {
-			background: var(--bg, var(--color-light-blue-1));
-		}
+	&:hover {
+		background-color: var(--color-orange10);
 	}
 }
+
+label, input {
+	font-family: var(--font2), sans-serif;
+}
+
+
+

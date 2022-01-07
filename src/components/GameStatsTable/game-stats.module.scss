@@ -1,9 +1,10 @@
+@import '../../assets/sass/config/config.scss';
+
 .gameStats {
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: auto auto 1fr;
     width: 100%;
-    max-width: 375px;
     height: 90vh;
     margin: 0 auto;
     text-align: center;
@@ -12,7 +13,7 @@
         width: 100%;
 
         h2 {
-            margin: 0 0 .5rem;
+            margin: 1rem 0 .5rem;
         }
         
         h3 {
@@ -22,9 +23,12 @@
     }
 
     &_table {
-        margin: 0 auto 1.5rem;
+        width: 100%;
+        margin: 0 auto 2.5rem;
 
         table {
+            width: 100%;
+            max-width: 400px;
             margin: 0 auto;
         }
 
@@ -36,7 +40,7 @@
         height: 2.25rem;
 
         &:nth-child(odd) {
-            background-color: #cccccc;
+            background-color: var(--color-orange20);
         }
         
         &:first-child {
@@ -51,13 +55,13 @@
     }
 
     &_stat {
-        border-bottom: 1px #424242 solid;
+        border-bottom: 1px var(--color-orange) solid;
 
     }
 
     &_statLabel {
         width: 55%;
-        border-bottom: 1px #424242 solid;
+        border-bottom: 1px var(--color-orange) solid;
         font-weight: 600;
         text-transform: uppercase;
     }
@@ -79,9 +83,12 @@
         text-transform: uppercase;
     }
 
-    &_navigationLink {
-        color: #333333;
+}
 
+.gameNavigation {
+
+    a {
+        color: var(--color-n4)
     }
 
 }

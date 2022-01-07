@@ -1,9 +1,19 @@
+@import '../../assets/sass/config/config.scss';
+
 .logo {
     max-width: 1024px;
     margin-top: 25%;
+    
+    @include media-query($medium-up) {
+        margin: 10% auto 0;
+    }
 
     img {
         width: 100%;
         height: auto;
+    
+        @include media-query($medium-up) {
+            width: 65%;
+        }
     }
 }

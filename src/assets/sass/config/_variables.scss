@@ -12,10 +12,36 @@ Colors, Typography, Border-Radi, Transitions, CSS Grid
 	//** Colors ** //
 	//primary - named colors, font colors, etc.
 	
-	--color-secondary: #ffa500;
+	--color-primary: #ffa500;
+	--color-secondary: #4F378E;
+	--color-tertiary: #7fc356;
+
+	// named colors
+	// solid
+	--color-orange: #ffa500;
+	--color-green: #7fc356;
+	--color-lt-green-1: #99CC99;
+	--color-lt-green-4: #e5f3dd;
+	--color-red: #FF0000;
+	--color-blue: #26BBD6;
+
+	//opaque/transparent
+	--color-orange80: rgba(255, 165, 0, 0.8);
+	--color-orange50: rgba(255, 165, 0, 0.5);
+	--color-orange30: rgba(255, 165, 0, 0.3);
+	--color-orange20: rgba(255, 165, 0, 0.2);
+	--color-orange10: rgba(255, 165, 0, 0.1);
+	--color-green80: rgba(127, 195, 86, 0.8);
+	--color-green50: rgba(127, 195, 86, 0.5);
+	--color-green30: rgba(127, 195, 86, 0.3);
+	--color-green20: rgba(127, 195, 86, 0.2);
+	--color-red80: rgba(255, 0, 0, 0.8);
+	--color-red50: rgba(255, 0, 0, 0.5);
+	--color-red30: rgba(255, 0, 0, 0.3);
+	--color-red20: rgba(255, 0, 0, 0.2);
 	--color-light-blue-1: #f7f9fb;
 	--color-light-blue-2: #bbcedf;
-	--color-blue: #5b89b4;
+	--color-blue: #26BBD6;
 	--color-dark-blue: #4d7499;
 
 	//black & white
@@ -26,19 +52,24 @@ Colors, Typography, Border-Radi, Transitions, CSS Grid
 	--color-n1: #b3b3b3;
 	--color-n2: #808080;
 	--color-n3: #4d4d4d;
-	--color-n4: #3a3a3a;
+	--color-n4: #222222;
 
 	//State Colors//
-	--color-link: var(--color-secondary);
+	--color-link: var(--color-primary);
 
-	//** Font **//
+	//** Fonts **//
 	//font families
 	--font1: 'Dosis';
-	--font2: 'Open Sans';
+	--font2: 'Inter';
+	--font3: 'Open Sans';
 
 	//body font size
 	--font-base-size: 16px;
 
+	//borders
+	--border-link: var(--color-primary) 2px solid;
+
+	//** Animation **//
 	//transition
 	--expo-out: cubic-bezier(0.16, 1, 0.3, 1);
 

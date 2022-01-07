@@ -38,11 +38,16 @@
         
         &_button {
             padding: .35rem;
-            border: 1px solid var(--color-secondary);
+            border: 1px solid var(--color-red80);
             background-color: var(--color-white);
-            color: var(--color-secondary);
+            color: var(--color-red80);
             font-family: var(--font2);
             text-transform: uppercase;
+
+            &:hover {
+                background-color: var(--color-red20);
+
+            }
 
         }
     }
@@ -71,10 +76,15 @@
                 padding-bottom: .25rem;
                 
                 a {
+                    color: var(--color-n4);
                     text-decoration: none;
         
                     span {
                         font-size: .75em !important;
+                    }
+
+                    &:hover {
+                        background-color: var(--color-orange20);
                     }
                 }
         

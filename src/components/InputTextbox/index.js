@@ -6,7 +6,9 @@ import s from './input-textbox.module.scss'
 
 export default function InputTextbox(props) {
 	const eleName = props.inputName
-  //const inputValue = useSelector((state) => state.inputTextbox.value)
+  const maxLen = props.maxLen
+  const style = props.style === 'teamAbbrev' ? s.teamAbbrev : s.teamName
+
   const inputTextbox = useSelector((state) => (state, eleName))
   const dispatch = useDispatch()
 
@@ -18,9 +20,9 @@ export default function InputTextbox(props) {
 }
 
   return (
-      <div>        
+      <div className={s.inputTextbox}>        
         <label>{props.label}:
-          <input id={eleName} type="text" name={eleName} value={inputTextbox.inputValue} onChange={handleChange} />        
+          <input id={eleName} className={style} type="text" name={eleName} value={inputTextbox.inputValue} maxlength={props.maxLen} onChange={handleChange} />        
         </label>
       </div>
   )

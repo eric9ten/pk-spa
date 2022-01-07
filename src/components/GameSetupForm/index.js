@@ -81,10 +81,10 @@ function GameSetupForm(props) {
             <p>Your Team:</p>
           </div>
           <div className={s.inputWrapper}>
-            <InputTextbox inputName="yourName" label="Name" />
+            <InputTextbox inputName="yourName" label="Name"  maxLen="25" style="teamName"/>
           </div>
           <div className={s.inputWrapper}>
-            <InputTextbox inputName="yourAbbrev" label="Abbrev" />
+            <InputTextbox inputName="yourAbbrev" label="Abbrev" maxLen="4" style="teamAbbrev"/>
           </div>
           <div className={s.inputWrapper}>
             <HomeCheckbox />
@@ -95,14 +95,14 @@ function GameSetupForm(props) {
             <p>Opponent:</p>
           </div>
           <div className={s.inputWrapper}>
-            <InputTextbox inputName="oppName" label="Name" />
+            <InputTextbox inputName="oppName" label="Name"  maxLen="25" style="teamName"/>
           </div>
           <div className={s.inputWrapper}>
-            <InputTextbox inputName="oppAbbrev" label="Abbrev" />
+            <InputTextbox inputName="oppAbbrev" label="Abbrev"  maxLen="4" style="teamAbbrev"/>
           </div>
         </div>
           <div className={s.inputWrapper}>  
-            <input type="submit" value="Next" disabled={submitting} onClick={handleSubmit} />
+            <input type="submit" value="Next" disabled={submitting} onClick={handleSubmit} className="button-green" />
           </div>
           <p className={props.error ? "error active" : "error"}>
             {props.error}
