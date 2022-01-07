@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Route, Switch } from 'react-router-dom'
-//import { createStore } from 'redux'
+import { createStore } from 'redux'
 //import { Provider } from 'react-redux';
 import { connect } from 'react-redux'
 
@@ -34,7 +34,10 @@ function App() {
     setGameData({[name]: value})
   }
 
-  //const store = createStore(reducer);
+  const store = createStore(
+    //reducer
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  );
 
   return (
       <Switch>

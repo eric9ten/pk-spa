@@ -9,7 +9,7 @@ export default function InputTextbox(props) {
   const maxLen = props.maxLen
   const style = props.style === 'teamAbbrev' ? s.teamAbbrev : s.teamName
 
-  const inputTextbox = useSelector((state) => (state, eleName))
+  const inputTextbox = useSelector((state) => state.inputTextbox)
   const dispatch = useDispatch()
 
   
@@ -22,7 +22,7 @@ export default function InputTextbox(props) {
   return (
       <div className={s.inputTextbox}>        
         <label>{props.label}:
-          <input id={eleName} className={style} type="text" name={eleName} value={inputTextbox.inputValue} maxlength={props.maxLen} onChange={handleChange} />        
+          <input id={eleName} className={style} type="text" name={eleName} value={inputTextbox.entities[eleName]} maxlength={maxLen} onChange={handleChange} />        
         </label>
       </div>
   )
