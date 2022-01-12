@@ -25,20 +25,6 @@ export const goalCounterSlice = createSlice({
         }
       }
     },
-    changeCount: {
-      reducer(state, action) {
-        const { inputID, inputValue } = action.payload
-        
-        state.entities[inputID] = inputValue
-        //state.value = action.payload;
-
-      },
-      prepare (inputID, inputValue) {
-        return {
-          payload: { inputID, inputValue }
-        }
-      }
-    },
     resetCount: {
       reducer(state, action) {
         const { inputID } = action.payload

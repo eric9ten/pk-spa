@@ -1,11 +1,12 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { //useSelector, 
+  useDispatch } from 'react-redux'
 import { setStartingGoal } from './radioTwoChoiceSlice'
 
 import s from './radio-two-choice.module.scss'
 
 export default function RadioTwoChoice(props) {
-  const goalStart = useSelector((state) => (state, 'startingGoal'))
+  //const goalStart = useSelector((state) => (state, 'startingGoal'))
   const dispatch = useDispatch()
 
   

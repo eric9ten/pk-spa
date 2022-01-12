@@ -6,9 +6,20 @@ export const dateTextboxSlice = createSlice({
     value: '',
   },
   reducers: {
-    changeDate: (state, action) => {
-      state.value = action.payload;
-    },
+    changeDate: {
+      reducer(state, action) {
+        const { inputID, inputValue } = action.payload
+        
+        state.value = inputValue
+        //state.value = action.payload;
+
+      },
+      prepare (inputID, inputValue) {
+        return {
+          payload: { inputID, inputValue }
+        }
+      }
+    }
   },
 })
 

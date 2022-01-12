@@ -11,13 +11,13 @@ import { changeHalf } from './gameSetupSlice'
 import s from './game-setup.module.scss'
 
 function GameSetupForm(props) {  
-  const half = useSelector((state) => state.gameSetupForm)
+  // const half = useSelector((state) => state.gameSetupForm)
   const dispatch = useDispatch()
-  const [submitting, setSubmitting] = useState(false);
+  const [submitting, setSubmitting] = useState(true);
   
   let isValid = true
 
-  function handleChange(event) {
+  /*function handleChange(event) {
     const isCheckbox = event.target.type === 'checkbox';
     const name = event.target.name
 
@@ -25,7 +25,7 @@ function GameSetupForm(props) {
 
     props.onChangeData(name, value)
 
-  }
+  }*/
 
   function handleSubmit (event) {
     event.preventDefault();

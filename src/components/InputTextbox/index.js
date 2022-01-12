@@ -12,12 +12,18 @@ export default function InputTextbox(props) {
   const inputTextbox = useSelector((state) => state.inputTextbox)
   const dispatch = useDispatch()
 
+  if (localStorage.getItem(eleName) !== '') {
+    dispatch(changeInput(eleName, localStorage.getItem(eleName)))
+
+  }
   
   function handleChange (e) {
     const inputValue = e.target.value
 
     dispatch(changeInput(eleName, inputValue))
-}
+    localStorage.setItem(eleName, inputValue)
+
+  }
 
   return (
       <div className={s.inputTextbox}>        

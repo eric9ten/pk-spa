@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useLocation } from 'react-router'
-import { useSelector, useDispatch } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { useSelector, 
+  //  useDispatch 
+  } from 'react-redux'
+//import { Redirect } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
-import history from '../../history'
+//import history from '../../history'
 
 import s from './game-stats.module.scss'
 
@@ -19,7 +21,7 @@ export default function GameStatsTable(props) {
   const location = useLocation();
   
   const currHalf = location.trackingProps.half
-  const half = currHalf == 1 ? "Halftime" : "Game Over"
+  const half = currHalf === 1 ? "Halftime" : "Game Over"
 
   let homeAbbrev = 'hhhh';
   let visAbbrev = 'vvvv';
