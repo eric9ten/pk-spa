@@ -21,11 +21,24 @@ export const inputTextboxSlice = createSlice({
           payload: { inputID, inputValue }
         }
       }
-    }
+    },
+    resetInput: {
+      reducer(state, action) {
+        const { inputID } = action.payload
+        
+        state.entities[inputID] = ''
+
+      },
+      prepare (inputID) {
+        return {
+          payload: { inputID }
+        }
+      }
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { changeInput } = inputTextboxSlice.actions
+export const { changeInput, resetInput } = inputTextboxSlice.actions
 
 export default inputTextboxSlice.reducer

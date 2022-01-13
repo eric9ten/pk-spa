@@ -81,10 +81,7 @@ input[type=submit] {
 }
 
 input[type=button] {
-	//padding: 0.625rem 1.5rem;
 	color: var(--color-n4);
-	//border-style: solid;
-	//border-width: 1px;
 	border-radius: 5px;
 	cursor: pointer;
 }
@@ -135,26 +132,54 @@ This is the syntax for global class names:
 }
 
 //** Buttons **//
-.button-green {
-	background-color:  var(--color-green20);
-	border-color: var(--color-green80);
+
+.buttonMed {
+	padding: 0.425rem 1rem;
+	border-style: solid;
+	border-width: 1px;
 }
 
-.button-green:hover {
-	background-color:  var(--color-green80);
+.buttonLarge {
+	padding: 0.625rem 1.5rem;
+	border-style: solid;
+	border-width: 1px;
 }
-.button-green:disabled {
-	background-color:  var(--color-white);
+
+.buttonGreen {
+	background-color:  var(--color-green20);
+	border-color: var(--color-green80);
+	
+	&:hover {
+		background-color:  var(--color-green80);
+	}
+
+	&:disabled {
+		background-color:  var(--color-white);
+	}
+}
+
+.buttonOrange {
+	background-color: var(--color-orange20);
+	border-color: var(--color-orange80);
+	
+	&:hover {
+		background-color:  var(--color-orange80);
+	}
+	
+	&:disabled {
+		background-color:  var(--color-white);
+	}
 }
 
 .buttonRed {
 	background-color:  var(--color-red20);
 	border-color: var(--color-red80);
-}
-
-.buttonRed:hover {
-	background-color:  var(--color-red80);
-}
-.buttonRed:disabled {
-	background-color:  var(--color-white);
+	
+	&:hover {
+		background-color:  var(--color-red80);
+	}
+	
+	&:disabled {
+		background-color:  var(--color-white);
+	}
 }

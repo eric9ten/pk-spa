@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { changeInput } from './inputTextboxSlice'
+import { changeInput, resetInput } from './inputTextboxSlice'
 
 import s from './input-textbox.module.scss'
 
@@ -12,9 +12,11 @@ export default function InputTextbox(props) {
   const inputTextbox = useSelector((state) => state.inputTextbox)
   const dispatch = useDispatch()
 
-  if (localStorage.getItem(eleName) !== '') {
+  if (localStorage.getItem(eleName) !== null) {
     dispatch(changeInput(eleName, localStorage.getItem(eleName)))
 
+  } else {
+    dispatch(resetInput(eleName))
   }
   
   function handleChange (e) {

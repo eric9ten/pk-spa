@@ -19,6 +19,10 @@ export const dateTextboxSlice = createSlice({
           payload: { inputID, inputValue }
         }
       }
+    },
+    resetDate: state => {
+      state.value = ''
+
     }
   },
 })

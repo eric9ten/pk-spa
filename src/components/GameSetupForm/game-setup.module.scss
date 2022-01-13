@@ -1,3 +1,5 @@
+@import "../../assets/sass/main.scss";
+
 .gameSetupFormContainer {
 
     .gameSetupForm {
@@ -6,6 +8,8 @@
         justify-content: stretch;
         align-items: center;
         height: 80vh;
+        max-width: $min-width;
+        margin: 0 auto;
 
         .inputWrapper {
             margin-top: .75em;
@@ -18,5 +22,69 @@
                 display: inline-flex;
             }
         }
+
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            width: 100%;
+            margin: 2rem 0 3.5rem;
+
+
+
+            .buttonWrapper {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 50%;
+
+                .buttonNote {
+                    margin-top: .25rem;
+                    font-family: var(--font2), sans-serif;
+                    font-size: .65rem;
+                    text-transform: uppercase;
+                }
+            }
+        }
     }
 }
+
+.modal {
+    position: relative;
+    top: -200px;
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+    padding: 1rem 2rem 2.5rem;
+    border: 1px var(--color-primary) solid;
+    border-radius: 5px;
+    box-shadow: 8px 8px var(--color-n120);
+    background-color: var(--color-white);
+    animation-name: openSlide;
+    animation-duration: 1s;
+
+    &_buttons {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width:75%;
+        margin: 1.5rem auto 0;
+
+    }
+
+}
+
+/* animation */
+
+@keyframes openSlide {
+    0% {
+      transform: translateY(-540px);
+    }
+    100% {
+      transform: translateY(-200px);
+    }
+  }
+  .popup-content {
+    -webkit-animation: anvil 0.3s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
+  }

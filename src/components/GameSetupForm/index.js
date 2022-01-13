@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { changeInput } from '../InputTextbox/inputTextboxSlice';
+import Popup from 'reactjs-popup';
 
 import DateTextbox from '../DateTextbox'
 import InputTextbox from '../InputTextbox'
@@ -10,25 +12,39 @@ import { changeHalf } from './gameSetupSlice'
 
 import s from './game-setup.module.scss'
 
-function GameSetupForm(props) {  
-  // const half = useSelector((state) => state.gameSetupForm)
+function GameSetupForm(props) {
   const dispatch = useDispatch()
+  const [clearData, setClearData] = useState(false);
   const [submitting, setSubmitting] = useState(true);
+  const [open, setOpen] = useState(false);
+  const closeModal = () => setOpen(false);
   
   let isValid = true
 
-  /*function handleChange(event) {
-    const isCheckbox = event.target.type === 'checkbox';
-    const name = event.target.name
+  function handleClear (e) {
+    clearLocalStorage()
+    clearReduxStore()
+    setOpen(false)
 
-    const value = isCheckbox ? event.target.checked : event.target.value
+  }
 
-    props.onChangeData(name, value)
+  function clearLocalStorage() {
+    localStorage.removeItem('gameDate')
+    localStorage.removeItem('yourName')
+    localStorage.removeItem('yourAbbrev')
+    localStorage.removeItem('isHome')
+    localStorage.removeItem('oppName')
+    localStorage.removeItem('oppAbbrev')
 
-  }*/
+  }
 
-  function handleSubmit (event) {
-    event.preventDefault();
+  function clearReduxStore() {
+    dispatch(changeInput('yourName', ''))
+
+  }
+
+  function handleSubmit (e) {
+    e.preventDefault();
     setSubmitting(true);
 
     dispatch(changeHalf(1))
@@ -72,6 +88,17 @@ function GameSetupForm(props) {
 
   return (
     <div className={s.gameSetupFormContainer}>
+      <Popup open={open} closeOnDocumentClick onClose={closeModal}>
+        <div className={s.modal}>
+          <div className={s.modal_body}>
+            <p>Are you sure you want to reset the Game Setup?</p> 
+          </div>
+          <div className={s.modal_buttons}>
+            <input type="button" value="Yes" class="buttonGreen buttonMed" onClick={handleClear}/>
+            <input type="button" value="No" class="buttonRed buttonMed" onClick={() => setOpen(o => !o)} />
+          </div>
+        </div>      
+      </Popup>
       <form className={s.gameSetupForm} onSubmit={handleSubmit} disabled={submitting}>
         <div className={s.inputWrapper}>        
           <DateTextbox />
@@ -101,8 +128,14 @@ function GameSetupForm(props) {
             <InputTextbox inputName="oppAbbrev" label="Abbrev"  maxLen="4" style="teamAbbrev"/>
           </div>
         </div>
-          <div className={s.inputWrapper}>  
-            <input type="submit" value="Next" disabled={submitting} onClick={handleSubmit} className="button-green" />
+          <div className={` ${s.inputWrapper} ${s.buttons}`}>
+            <div className={s.buttonWrapper}>
+              <input type="button" value="Clear" class="buttonRed buttonLarge" onClick={() => setOpen(o => !o)}/>
+            </div>
+            <div className={s.buttonWrapper}>
+              <input type="submit" value="Next" class="buttonOrange" disabled={submitting} onClick={handleSubmit}  />
+              <div className={s.buttonNote}>to goal setup</div>
+            </div>
           </div>
           <p className={props.error ? "error active" : "error"}>
             {props.error}
