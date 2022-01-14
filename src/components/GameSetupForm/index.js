@@ -105,8 +105,8 @@ function GameSetupForm(props) {
             <p>Are you sure you want to reset the Game Setup?</p> 
           </div>
           <div className={s.modal_buttons}>
-            <input type="button" value="Yes" class="buttonGreen buttonMed" onClick={handleClear}/>
-            <input type="button" value="No" class="buttonRed buttonMed" onClick={() => setOpen(o => !o)} />
+            <input type="button" value="Yes" className="buttonGreen buttonMed" onClick={handleClear}/>
+            <input type="button" value="No" className="buttonRed buttonMed" onClick={() => setOpen(o => !o)} />
           </div>
         </div>      
       </Popup>

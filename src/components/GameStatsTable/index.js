@@ -1,24 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useLocation } from 'react-router'
-import { useSelector, 
-  //  useDispatch 
-  } from 'react-redux'
-//import { Redirect } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import Popup from 'reactjs-popup';
 import { Link } from 'react-router-dom'
 
-//import history from '../../history'
+import history from '../../history'
 
 import s from './game-stats.module.scss'
 
 export default function GameStatsTable(props) { 
+  const dispatch = useDispatch()
+  const location = useLocation()
   const gameDate = useSelector((state) => state.dateTextbox)
   const isHome = useSelector((state) => state.isHome)
-  //const curHalf = useSelector((state) => state.gameHalf)
   const yourAbb = useSelector((state) => state.inputTextbox.entities.yourAbbrev)
   const oppAbb = useSelector((state) => state.inputTextbox.entities.oppAbbrev)
   const goalCount = useSelector((state) => state.goalCounter)
   const inputCount = useSelector((state) => state.inputCounter)
-  const location = useLocation();
+  const [open, setOpen] = useState(false)
+  const closeModal = () => setOpen(false)
   
   const currHalf = location.trackingProps.half
   const half = currHalf === 1 ? "Halftime" : "Game Over"
@@ -79,9 +79,31 @@ export default function GameStatsTable(props) {
     rightRCs = "teamARedCards"
 
   }
+  
+  function handleFinal (e) {
+    localStorage.clear();
+
+    history.push({
+      pathname: '/',
+    })
+
+    setOpen(false)
+
+  }
 
   return (
     <div className={s.gameStats}>
+      <Popup open={open} offsetY="350px" closeOnDocumentClick onClose={closeModal}>
+        <div className={s.modal}>
+          <div className={s.modal_body}>
+            <p>Are you sure you want to finalize the game?</p> 
+          </div>
+          <div className={s.modal_buttons}>
+            <input type="button" value="Yes" class="buttonGreen buttonMed" onClick={handleFinal}/>
+            <input type="button" value="No" class="buttonRed buttonMed" onClick={() => setOpen(o => !o)} />
+          </div>
+        </div>      
+      </Popup>
       <div className={s.gameStats_title}>
         <h2>{half}</h2>
         <h3>{gameDate.value}</h3>
@@ -147,6 +169,13 @@ export default function GameStatsTable(props) {
             <td className={`${s.gameStats_stat} ${s.gameStats_reds}`}>{inputCount.entities[rightRCs]}</td>
           </tr>
         </table>
+          { currHalf === 2 &&
+            <div className={s.buttons}>
+              <div className={s.buttonWrapper}>
+                <input type="button" value="End Game" className="buttonRed buttonLarge" onClick={() => setOpen(o => !o)} />
+              </div>
+            </div>
+          }
       </div>
       <div className={s.gameNavigation}>
           <div className={s.gameNavigation_link}>

@@ -61,8 +61,8 @@
     border-radius: 5px;
     box-shadow: 8px 8px var(--color-n120);
     background-color: var(--color-white);
-    animation-name: openSlide;
-    animation-duration: 1s;
+    animation: openSlide 0.3s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
+    -webkit-animation: openSlide 0.3s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
 
     &_buttons {
         display: flex;
@@ -76,7 +76,6 @@
 }
 
 /* animation */
-
 @keyframes openSlide {
     0% {
       transform: translateY(-540px);
@@ -84,7 +83,4 @@
     100% {
       transform: translateY(-200px);
     }
-  }
-  .popup-content {
-    -webkit-animation: anvil 0.3s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
-  }
+}
