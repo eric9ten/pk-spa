@@ -86,9 +86,10 @@
 }
 
 .gameNavigation {
-
-    a {
-        color: var(--color-n4)
-    }
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    max-width: 375px;
 
 }

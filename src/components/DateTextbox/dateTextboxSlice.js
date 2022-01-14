@@ -28,6 +28,6 @@ export const dateTextboxSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { changeDate } = dateTextboxSlice.actions
+export const { changeDate, resetDate } = dateTextboxSlice.actions
 
 export default dateTextboxSlice.reducer

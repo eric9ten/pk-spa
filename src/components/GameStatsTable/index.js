@@ -157,7 +157,7 @@ export default function GameStatsTable(props) {
                 }
               }}>&larr; Continue Scoring</Link>
           </div>
-          { currHalf === 2 &&
+          { currHalf === 1 &&
             <div className={s.gameNavigation_link}>
                 <Link to={{
                   pathname: '/game-tracking', 

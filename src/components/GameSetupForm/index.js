@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { changeInput } from '../InputTextbox/inputTextboxSlice';
 import Popup from 'reactjs-popup';
 
@@ -14,12 +14,16 @@ import s from './game-setup.module.scss'
 
 function GameSetupForm(props) {
   const dispatch = useDispatch()
-  const [clearData, setClearData] = useState(false);
-  const [submitting, setSubmitting] = useState(true);
+  const [isInvalid, setIsInvalid] = useState(false);
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
   
-  let isValid = true
+  const gameDate = useSelector((state) => state.dateTextbox)
+  const yourName = useSelector((state) => state.inputTextbox.entities.yourName)
+  const yourAbbrev = useSelector((state) => state.inputTextbox.entities.yourAbbrev)
+  const oppName = useSelector((state) => state.inputTextbox.entities.oppName)
+  const oppAbbrev = useSelector((state) => state.inputTextbox.entities.oppAbbrev)
+
 
   function handleClear (e) {
     clearLocalStorage()
@@ -36,6 +40,8 @@ function GameSetupForm(props) {
     localStorage.removeItem('oppName')
     localStorage.removeItem('oppAbbrev')
 
+    setIsInvalid(false)
+
   }
 
   function clearReduxStore() {
@@ -45,41 +51,46 @@ function GameSetupForm(props) {
 
   function handleSubmit (e) {
     e.preventDefault();
-    setSubmitting(true);
 
     dispatch(changeHalf(1))
 
-    if(isValid) {
+    if(!isInvalid) {
       history.push({
         pathname: '/goal-setup',
       })
     } else {
       //props.onError(errMsg)    
     }
-    setSubmitting(false);
+    setIsInvalid(false);
   }
 
+  // TODO: Need to validate form
   function checkIsValid () {
     let errMsg = ''
-    console.log("is Valid is: " + isValid)
 
-    if (props.gameDate === '') {
-      errMsg = "The game date cannot be blank."
+    if (gameDate === null || gameDate === "") {
+      setIsInvalid(false)
+      //errMsg = "The game date cannot be blank."
       
-    } else if (props.yourName === '') {
-      errMsg = "Your Team Name cannot be blank."
+    } else if (yourName === null || yourName === "") {
+      setIsInvalid(false)
+      //errMsg = "Your Team Name cannot be blank."
       
-    } else if (props.yourAbbrev === '') {
-      errMsg = "Your Team Abbrev cannot be blank."
+    } else if (yourAbbrev === null || yourAbbrev === "") {
+      setIsInvalid(false)
+      //errMsg = "Your Team Abbrev cannot be blank."
       
-    } else if (props.oppName === '') {
-      errMsg = "The Opponent Team Name cannot be blank."
+    } else if (oppName === null || oppName === "") {
+      setIsInvalid(false)
+      //errMsg = "The Opponent Team Name cannot be blank."
       
-    } else if (props.oppAbbrev ==='') {
-      errMsg = "The Opponent Abbrev cannot be blank."
+    } else if (oppAbbrev === null || oppAbbrev === "") {
+      setIsInvalid(false)
+      //errMsg = "The Opponent Abbrev cannot be blank."
       
     } else {
-      isValid = true
+      setIsInvalid(true)
+
     }
 
     return errMsg
@@ -99,7 +110,7 @@ function GameSetupForm(props) {
           </div>
         </div>      
       </Popup>
-      <form className={s.gameSetupForm} onSubmit={handleSubmit} disabled={submitting}>
+      <form className={s.gameSetupForm} onSubmit={handleSubmit} disabled={isInvalid}>
         <div className={s.inputWrapper}>        
           <DateTextbox />
         </div>
@@ -130,10 +141,10 @@ function GameSetupForm(props) {
         </div>
           <div className={` ${s.inputWrapper} ${s.buttons}`}>
             <div className={s.buttonWrapper}>
-              <input type="button" value="Clear" class="buttonRed buttonLarge" onClick={() => setOpen(o => !o)}/>
+              <input type="button" value="Reset" class="buttonRed buttonLarge" onClick={() => setOpen(o => !o)}/>
             </div>
             <div className={s.buttonWrapper}>
-              <input type="submit" value="Next" class="buttonOrange" disabled={submitting} onClick={handleSubmit}  />
+              <input type="submit" value="Next" class="buttonOrange" disabled={isInvalid} onClick={handleSubmit}  />
               <div className={s.buttonNote}>to goal setup</div>
             </div>
           </div>

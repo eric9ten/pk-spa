@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { changeDate } from './dateTextboxSlice'
+import { changeDate, resetDate } from './dateTextboxSlice'
 
 import s from './date-textbox.module.scss'
 
@@ -9,9 +9,11 @@ export default function DateTextbox(props) {
   const eleName = "gameDate"
   const dispatch = useDispatch()
 
-  if (localStorage.getItem(eleName) !== '') {
+  if (localStorage.getItem(eleName) !== null) {
     dispatch(changeDate(eleName, localStorage.getItem(eleName)))
 
+  } else {
+    dispatch(resetDate())
   }
 
   function handleChange (e) {
