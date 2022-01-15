@@ -15,12 +15,13 @@ function StatTrackingForm(props) {
     const startGoal = useSelector((state) => state.startingGoal)
     const yourAbb = useSelector((state) => state.inputTextbox.entities.yourAbbrev)
     const oppAbb = useSelector((state) => state.inputTextbox.entities.oppAbbrev)
+    const currHalf = useSelector((state) => state.gameHalf)
     const dispatch = useDispatch()
 
-    let currHalf = 1 
+    /*let currHalf = 1 
     if (location.trackingProps) {
         currHalf = location.trackingProps.half
-    }
+    }*/
     
     let leftAbbrev = 'hom'
     let rightAbbrev = 'vis'
@@ -95,26 +96,46 @@ function StatTrackingForm(props) {
 
     function resetForm () {
         //left stats
+        localStorage.removeItem(leftGoals)
         dispatch(resetCount(leftGoals))
+        localStorage.removeItem(leftPasses)
         dispatch(resetAmount(leftPasses))
+        localStorage.removeItem(leftShots)
         dispatch(resetAmount(leftShots))
+        localStorage.removeItem(leftCKs)
         dispatch(resetAmount(leftCKs))
+        localStorage.removeItem(leftGKs)
         dispatch(resetAmount(leftGKs))
+        localStorage.removeItem(leftTackles)
         dispatch(resetAmount(leftTackles))
+        localStorage.removeItem(leftOff)
         dispatch(resetAmount(leftOff))
+        localStorage.removeItem(leftFouls)
         dispatch(resetAmount(leftFouls))
+        localStorage.removeItem(leftYCs)
         dispatch(resetAmount(leftYCs))
+        localStorage.removeItem(leftRCs)
         dispatch(resetAmount(leftRCs))
 
+        localStorage.removeItem(rightGoals)
         dispatch(resetCount(rightGoals))
+        localStorage.removeItem(rightPasses)
         dispatch(resetAmount(rightPasses))
+        localStorage.removeItem(rightShots)
         dispatch(resetAmount(rightShots))
+        localStorage.removeItem(rightCKs)
         dispatch(resetAmount(rightCKs))
+        localStorage.removeItem(rightGKs)
         dispatch(resetAmount(rightGKs))
+        localStorage.removeItem(rightTackles)
         dispatch(resetAmount(rightTackles))
+        localStorage.removeItem(rightOff)
         dispatch(resetAmount(rightOff))
+        localStorage.removeItem(rightFouls)
         dispatch(resetAmount(rightFouls))
+        localStorage.removeItem(rightYCs)
         dispatch(resetAmount(rightYCs))
+        localStorage.removeItem(rightRCs)
         dispatch(resetAmount(rightRCs))
 
     }

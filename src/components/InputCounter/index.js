@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { changeAmount } from './inputCounterSlice'
+import { changeAmount, resetAmount } from './inputCounterSlice'
 
 import s from './input-counter.module.scss'
 
@@ -12,16 +12,26 @@ export default function InputCounter(props) {
     
     let tempCount = 0
 
+    if (localStorage.getItem(eleName) !== null) {
+      tempCount = parseInt(localStorage.getItem(eleName))
+      dispatch(changeAmount(eleName, tempCount))
+  
+    } else {
+      dispatch(resetAmount(eleName))
+    }
+
     function incrementCount(e) {
         tempCount = counter.entities[eleName] + 1;
         
         dispatch(changeAmount(eleName, tempCount))
+        localStorage.setItem(eleName, tempCount)
     }
 
     function decrementCount(e) {
         tempCount = counter.entities[eleName] > 0 ? counter.entities[eleName] - 1 : 0
         
         dispatch(changeAmount(eleName, tempCount))
+        localStorage.setItem(eleName, tempCount)
 
     }
 
@@ -29,6 +39,7 @@ export default function InputCounter(props) {
         const fieldValue = e.target.value
         
         dispatch(changeAmount(eleName, fieldValue))
+        localStorage.setItem(eleName, fieldValue)
     }
 
     return (

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { changeCount } from './goalCounterSlice'
+import { changeCount, resetCount } from './goalCounterSlice'
 
 import s from './goal-counter.module.scss'
 
@@ -12,16 +12,26 @@ export default function GoalCounter(props) {
     
     let tempCount = 0
 
+    if (localStorage.getItem(eleName) !== null) {
+      tempCount = parseInt(localStorage.getItem(eleName))
+      dispatch(changeCount(eleName, tempCount))
+  
+    } else {
+      dispatch(resetCount(eleName))
+    }
+
     function incrementCount(e) {
         tempCount = goalInputCounter.entities[eleName] + 1;
         
         dispatch(changeCount(eleName, tempCount))
+        localStorage.setItem(eleName, tempCount)
     }
 
     function decrementCount(e) {
         tempCount = goalInputCounter.entities[eleName] > 0 ? goalInputCounter.entities[eleName] - 1 : 0
         
         dispatch(changeCount(eleName, tempCount))
+        localStorage.setItem(eleName, tempCount)
 
     }
 
@@ -29,6 +39,7 @@ export default function GoalCounter(props) {
         const fieldValue = e.target.value
         
         dispatch(changeCount(eleName, fieldValue))
+        localStorage.setItem(eleName, fieldValue)
     }
 
     return (
