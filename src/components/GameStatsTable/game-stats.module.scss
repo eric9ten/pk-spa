@@ -1,4 +1,4 @@
-@import '../../assets/sass/config/config.scss';
+@import '../../assets/sass/main.scss';
 
 .gameStats {
     display: grid;
@@ -84,20 +84,19 @@
     }
 
     .buttons {
-        margin-top: 2rem;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: 4rem;
+
+        &_buttonWrapper {
+            flex: 1 1 50%;
+        }
     }
 
 
 }
 
-.gameNavigation {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    max-width: 375px;
-
-}
 .modal {
     position: relative;
     top: -200px;

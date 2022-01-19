@@ -82,6 +82,8 @@ input[type=submit] {
 
 input[type=button] {
 	color: var(--color-n4);
+	border-style: solid;
+	border-width: 1px;
 	border-radius: 5px;
 	cursor: pointer;
 }
@@ -135,14 +137,25 @@ This is the syntax for global class names:
 
 .buttonMed {
 	padding: 0.425rem 1rem;
-	border-style: solid;
-	border-width: 1px;
+	font-size: .9rem;
 }
 
 .buttonLarge {
 	padding: 0.625rem 1.5rem;
-	border-style: solid;
-	border-width: 1px;
+	font-size: 1.1rem;
+}
+
+.buttonBlue {
+	background-color:  var(--color-blue20);
+	border-color: var(--color-blue80);
+	
+	&:hover {
+		background-color:  var(--color-blue80);
+	}
+
+	&:disabled {
+		background-color:  var(--color-white);
+	}
 }
 
 .buttonGreen {

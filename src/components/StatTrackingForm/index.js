@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { useLocation } from 'react-router'
+import { setStartingGoal } from '../RadioTwoChoice/radioTwoChoiceSlice'
 import { resetCount } from '../GoalCounter/goalCounterSlice'
 import { resetAmount } from '../InputCounter/inputCounterSlice'
 
@@ -11,37 +11,66 @@ import GoalCounter from '../GoalCounter'
 import s from './stat-tracking-form.module.scss'
 
 function StatTrackingForm(props) {
-    const location = useLocation()
-    const startGoal = useSelector((state) => state.startingGoal)
-    const yourAbb = useSelector((state) => state.inputTextbox.entities.yourAbbrev)
-    const oppAbb = useSelector((state) => state.inputTextbox.entities.oppAbbrev)
-    const currHalf = useSelector((state) => state.gameHalf)
+    const sgStore = useSelector((state) => state.startingGoal)
+    const yourAbbrev = useSelector((state) => state.inputTextbox.entities.yourAbbrev)
+    const oppAbbrev = useSelector((state) => state.inputTextbox.entities.oppAbbrev)
+    const half = useSelector((state) => state.gameHalf)
     const dispatch = useDispatch()
 
-    /*let currHalf = 1 
-    if (location.trackingProps) {
-        currHalf = location.trackingProps.half
-    }*/
     
+    let currHalf = 0
+    let startGoal = ''
+    let yourAbb = 'YA'
+    let oppAbb = 'OA'
     let leftAbbrev = 'hom'
     let rightAbbrev = 'vis'
     let statsSide = 'left'
-
     let leftGoals, leftPasses, leftShots, leftCKs, leftGKs, leftTackles, leftOff, leftFouls, leftYCs, leftRCs = 0
     let rightGoals, rightPasses, rightShots, rightCKs, rightGKs, rightTackles, rightOff, rightFouls, rightYCs, rightRCs = 0
 
+    if (localStorage.getItem('gameHalf') !== null) {
+        currHalf = parseInt(localStorage.getItem('gameHalf'))
+
+    } else {
+        currHalf = half.value
+    }
+
+    if (sgStore !== null) {
+        startGoal = sgStore.startingGoal
+        localStorage.setItem('startingGoal', sgStore.startingGoal)
+        
+    } else {
+        startGoal = localStorage.getItem('startingGoal')
+        dispatch(setStartingGoal(localStorage.getItem('startingGoal')))
+        
+    }
+
     if (currHalf === 1) {
-        statsSide = startGoal
+        statsSide = startGoal.startingGoal
+        console.log("The stats are on side " + statsSide)
         
     } else {
         if (startGoal === 'left') {
-            statsSide ='right'
+            statsSide = 'right'
         } else {
             statsSide = 'left'
         }
     }
-
     
+    //console.log("The stats are on side " + statsSide)
+
+    if (localStorage.getItem('yourAbbrev') !== null) {
+        yourAbb = localStorage.getItem('yourAbbrev')
+    } else {
+        yourAbb = yourAbbrev
+    }
+
+    if (localStorage.getItem('oppAbbrev') !== null) {
+        oppAbb = localStorage.getItem('oppAbbrev')
+    } else {
+        oppAbb = yourAbbrev
+    }
+
     if (statsSide === 'left') {
     //if (location.state.startGoal === 'left') {
         leftAbbrev = yourAbb

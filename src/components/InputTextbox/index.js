@@ -12,11 +12,15 @@ export default function InputTextbox(props) {
   const inputTextbox = useSelector((state) => state.inputTextbox)
   const dispatch = useDispatch()
 
+  //console.log("Local storage is: " + localStorage.getItem(eleName))
+
   if (localStorage.getItem(eleName) !== null) {
     dispatch(changeInput(eleName, localStorage.getItem(eleName)))
 
   } else {
     dispatch(resetInput(eleName))
+    localStorage.removeItem(eleName)
+
   }
   
   function handleChange (e) {

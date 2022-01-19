@@ -13,7 +13,7 @@ import '../src/assets/sass/main.scss';
 
 function App() {
   const initialValues = {
-    gameDate: '', yourName: '', yourAbbrev: '', oppName: '', oppAbbrev: '', startGoal: '', isHome: false,
+    gameDate: '', yourName: '', yourAbbrev: '', oppName: '', oppAbbrev: '', startGoal: 'left', isHome: false,
     teamAGoals: 0, teamAPasses: 0, teamAShots: 0, teamACorners: 0, teamAGoalKicks: 0, teamATackles: 0, teamAOffsides: 0, teamAFouls: 0, teamAYellowCards: 0, teamARedCards: 0,
     teamBGoals: 0, teamBPasses: 0, teamBShots: 0, teamBCorners: 0, teamBGoalKicks: 0, teamBTackles: 0, teamBOffsides: 0, teamBFouls: 0, teamBYellowCards: 0, teamBRedCards: 0,
 

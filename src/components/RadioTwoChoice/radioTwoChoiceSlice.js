@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const radioTwoChoiceSlice = createSlice({
   name: 'goalRadioBox',
   initialState: {
-    startingGoal: 'left'
+    startingGoal: ''
   },
   reducers: {
     setStartingGoal(state, action) {
@@ -11,10 +11,13 @@ export const radioTwoChoiceSlice = createSlice({
       state.startingGoal = action.payload;
 
     },
+    resetStartingGoal(state){
+      state.startingGoal = ''
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { setStartingGoal } = radioTwoChoiceSlice.actions
+export const { setStartingGoal, resetStartingGoal } = radioTwoChoiceSlice.actions
 
 export default radioTwoChoiceSlice.reducer

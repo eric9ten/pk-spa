@@ -1,17 +1,22 @@
-import React, { useState } from 'react'
-import { useLocation } from 'react-router'
+import React, { useState } from 'react';
+import { useLocation } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux'
+import { changeHalf } from '../GameSetupForm/gameSetupSlice';
+import { changeDate } from '../DateTextbox/dateTextboxSlice';
+import { changeInput } from '../InputTextbox/inputTextboxSlice';
 import Popup from 'reactjs-popup';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
 
-import history from '../../history'
+import history from '../../history';
 
-import s from './game-stats.module.scss'
+import s from './game-stats.module.scss';
 
 export default function GameStatsTable(props) { 
   const dispatch = useDispatch()
   const location = useLocation()
-  const gameDate = useSelector((state) => state.dateTextbox)
+  const gDate = useSelector((state) => state.dateTextbox)
+  const gameHalf = useSelector((state) => state.gameHalf)
   const isHome = useSelector((state) => state.isHome)
   const yourAbb = useSelector((state) => state.inputTextbox.entities.yourAbbrev)
   const oppAbb = useSelector((state) => state.inputTextbox.entities.oppAbbrev)
@@ -19,8 +24,53 @@ export default function GameStatsTable(props) {
   const inputCount = useSelector((state) => state.inputCounter)
   const [open, setOpen] = useState(false)
   const closeModal = () => setOpen(false)
+  let currHalf = 0
+  let gameDate = new Date()
+  let yourAbbrev = ''
+  let oppAbbrev = ''
   
-  const currHalf = location.trackingProps.half
+  //const currHalf = location.trackingProps.half
+
+  if (localStorage.getItem('gameHalf') !== null ) {
+    currHalf = parseInt(localStorage.getItem('gameHalf'))
+    dispatch(changeHalf(currHalf))
+
+  } else {
+    currHalf = gameHalf.value
+    localStorage.setItem('gameHalf', currHalf)
+
+  }
+
+  if (localStorage.getItem('gameDate') !== null ) {
+    gameDate = new Date(localStorage.getItem('gameDate'))
+    dispatch(changeDate(localStorage.getItem('gameDate')))
+
+  } else {
+    gameDate = new Date(gDate.value)
+    localStorage.setItem('gameDate', gDate.value)
+
+  }
+
+  if (localStorage.getItem('yourAbbrev') !== null ) {
+    yourAbbrev = localStorage.getItem('yourAbbrev')
+    dispatch(changeInput(localStorage.getItem('yourAbbrev')))
+
+  } else {
+    yourAbbrev = yourAbb.value
+    localStorage.setItem('yourAbbrev', yourAbb.value)
+
+  }
+
+  if (localStorage.getItem('oppAbbrev') !== null ) {
+    oppAbbrev = localStorage.getItem('oppAbbrev')
+    dispatch(changeInput(localStorage.getItem('oppAbbrev')))
+
+  } else {
+    oppAbbrev = oppAbb.value
+    localStorage.setItem('oppAbbrev', oppAbb.value)
+
+  }
+
   const half = currHalf === 1 ? "Halftime" : "Game Over"
 
   let homeAbbrev = 'hhhh';
@@ -29,54 +79,73 @@ export default function GameStatsTable(props) {
   let rightGoals, rightPasses, rightShots, rightCKs, rightGKs, rightTackles, rightOff, rightFouls, rightYCs, rightRCs = 0
   
   if (isHome) {
-    homeAbbrev = yourAbb;
-    leftGoals = "teamAGoals"
-    leftPasses = "teamAPasses"
-    leftShots = "teamAShots"
-    leftCKs = "teamACorners"
-    leftGKs = "teamAGoalKicks"
-    leftTackles = "teamATackles"
-    leftOff = "teamAOffsides"
-    leftFouls = "teamAFouls"
-    leftYCs = "teamAYellowCards"
-    leftRCs = "teamARedCards"
+    homeAbbrev = yourAbbrev;
+    leftGoals = goalCount.entities['teamAGoals'] !== 0 ? goalCount.entities['teamAGoals'] : localStorage.getItem('teamAGoals') //teamAGoals
+    leftPasses = inputCount.entities['teamAPasses'] !== 0 ? inputCount.entities['teamAPasses'] : localStorage.getItem('teamAPasses') //"teamAPasses"
+    leftShots = inputCount.entities['teamAShots'] !== 0 ? inputCount.entities['teamAShots'] : localStorage.getItem('teamAShots') //"teamAShots"
+    leftCKs = inputCount.entities['teamACorners'] !== 0 ? inputCount.entities['teamACorners'] : localStorage.getItem('teamACorners') //"teamACorners"
+    leftGKs = inputCount.entities['teamAGoalKicks'] !== 0 ? inputCount.entities['teamAGoalKicks'] : localStorage.getItem('teamAGoalKicks') //"teamAGoalKicks"
+    leftTackles = inputCount.entities['teamATackles'] !== 0 ? inputCount.entities['teamATackles'] : localStorage.getItem('teamATackles') //"teamATackles"
+    leftOff = inputCount.entities['teamAOffsides'] !== 0 ? inputCount.entities['teamAOffsides'] : localStorage.getItem('teamAOffsides') //"teamAOffsides"
+    leftFouls = inputCount.entities['teamAFouls'] !== 0 ? inputCount.entities['teamAFouls'] : localStorage.getItem('teamAFouls') //"teamAFouls"
+    leftYCs = inputCount.entities['teamAYellowCards'] !== 0 ? inputCount.entities['teamAYellowCards'] : localStorage.getItem('teamAYellowCards') //"teamAYellowCards"
+    leftRCs = inputCount.entities['teamARedCards'] !== 0 ? inputCount.entities['teamARedCards'] : localStorage.getItem('teamARedCards') //"teamARedCards"
 
-    visAbbrev = oppAbb;
-    rightGoals = "teamBGoals"
-    rightPasses = "teamBPasses"
-    rightShots = "teamBShots"
-    rightCKs = "teamBCorners"
-    rightGKs = "teamBGoalKicks"
-    rightTackles = "teamBTackles"
-    rightOff = "teamBOffsides"
-    rightFouls = "teamBFouls"
-    rightYCs = "teamBYellowCards"
-    rightRCs = "teamBRedCards"
+    visAbbrev = oppAbbrev;
+    rightGoals = goalCount.entities['teamBGoals'] !== 0 ? goalCount.entities['teamBGoals'] : localStorage.getItem('teamBGoals') //"teamBGoals"
+    rightPasses = inputCount.entities['teamBPasses'] !== 0 ? inputCount.entities['teamBPasses'] : localStorage.getItem('teamBPasses') //"teamBPasses"
+    rightShots = inputCount.entities['teamBShots'] !== 0 ? inputCount.entities['teamBShots'] : localStorage.getItem('teamBShots') //"teamBShots"
+    rightCKs =  inputCount.entities['teamBCorners'] !== 0 ? inputCount.entities['teamBCorners'] : localStorage.getItem('teamBCorners') //"teamBCorners"
+    rightGKs =  inputCount.entities['teamBGoalKicks'] !== 0 ? inputCount.entities['teamBGoalKicks'] : localStorage.getItem('teamBGoalKicks') //"teamBGoalKicks"
+    rightTackles = inputCount.entities['teamBTackles'] !== 0 ? inputCount.entities['teamBTackles'] : localStorage.getItem('teamBTackles') //"teamBTackles"
+    rightOff = inputCount.entities['teamBOffsides'] !== 0 ? inputCount.entities['teamBOffsides'] : localStorage.getItem('teamBOffsides') //"teamBOffsides"
+    rightFouls = inputCount.entities['teamBFouls'] !== 0 ? inputCount.entities['teamBFouls'] : localStorage.getItem('teamBFouls') //"teamBFouls"
+    rightYCs = inputCount.entities['teamBYellowCards'] !== 0 ? inputCount.entities['teamBYellowCards'] : localStorage.getItem('teamBYellowCards') //"teamBYellowCards"
+    rightRCs = inputCount.entities['teamBRedCards'] !== 0 ? inputCount.entities['teamBRedCards'] : localStorage.getItem('teamBRedCards') //"teamBRedCards"
 
   } else {
-    homeAbbrev = oppAbb;
-    leftGoals = "teamBGoals"
-    leftPasses = "teamBPasses"
-    leftShots = "teamBShots"
-    leftCKs = "teamBCorners"
-    leftGKs = "teamBGoalKicks"
-    leftTackles = "teamBTackles"
-    leftOff = "teamBOffsides"
-    leftFouls = "teamBFouls"
-    leftYCs = "teamBYellowCards"
-    leftRCs = "teamBRedCards"
+    homeAbbrev = oppAbbrev;
+    leftGoals = goalCount.entities['teamBGoals'] !== 0 ? goalCount.entities['teamBGoals'] : localStorage.getItem('teamBGoals') //"teamBGoals"
+    leftPasses = inputCount.entities['teamBPasses'] !== 0 ? inputCount.entities['teamBPasses'] : localStorage.getItem('teamBPasses') //"teamAPasses"
+    leftShots = inputCount.entities['teamBShots'] !== 0 ? inputCount.entities['teamBShots'] : localStorage.getItem('teamBShots') //"teamBShots"
+    leftCKs =  inputCount.entities['teamBCorners'] !== 0 ? inputCount.entities['teamBCorners'] : localStorage.getItem('teamBCorners') //"teamBCorners"
+    leftGKs =  inputCount.entities['teamBGoalKicks'] !== 0 ? inputCount.entities['teamBGoalKicks'] : localStorage.getItem('teamBGoalKicks') //"teamBGoalKicks"
+    leftTackles = inputCount.entities['teamBTackles'] !== 0 ? inputCount.entities['teamBTackles'] : localStorage.getItem('teamBTackles') //"teamBTackles"
+    leftOff = inputCount.entities['teamBOffsides'] !== 0 ? inputCount.entities['teamBOffsides'] : localStorage.getItem('teamBOffsides') //"teamBOffsides"
+    leftFouls = inputCount.entities['teamBFouls'] !== 0 ? inputCount.entities['teamBFouls'] : localStorage.getItem('teamBFouls') //"teamBFouls"
+    leftYCs = inputCount.entities['teamBYellowCards'] !== 0 ? inputCount.entities['teamBYellowCards'] : localStorage.getItem('teamBYellowCards') //"teamBYellowCards"
+    leftRCs = inputCount.entities['teamBRedCards'] !== 0 ? inputCount.entities['teamBRedCards'] : localStorage.getItem('teamBRedCards') //"teamBRedCards"
 
-    visAbbrev = yourAbb;
-    rightGoals = "teamAGoals"
-    rightPasses = "teamAPasses"
-    rightShots = "teamAShots"
-    rightCKs = "teamACorners"
-    rightGKs = "teamAGoalKicks"
-    rightTackles = "teamATackles"
-    rightOff = "teamAOffsides"
-    rightFouls = "teamAFouls"
-    rightYCs = "teamAYellowCards"
-    rightRCs = "teamARedCards"
+    visAbbrev = yourAbbrev;
+    rightGoals = goalCount.entities['teamAGoals'] !== 0 ? goalCount.entities['teamAGoals'] : localStorage.getItem('teamAGoals') //"teamAGoals"
+    rightPasses = inputCount.entities['teamAPasses'] !== 0 ? inputCount.entities['teamAPasses'] : localStorage.getItem('teamAPasses') //"teamAPasses"
+    rightShots = inputCount.entities['teamAShots'] !== 0 ? inputCount.entities['teamAShots'] : localStorage.getItem('teamAShots') //"teamAShots"
+    rightCKs =  inputCount.entities['teamACorners'] !== 0 ? inputCount.entities['teamACorners'] : localStorage.getItem('teamACorners') //"teamACorners"
+    rightGKs =  inputCount.entities['teamAGoalKicks'] !== 0 ? inputCount.entities['teamAGoalKicks'] : localStorage.getItem('teamAGoalKicks') //"teamAGoalKicks"
+    rightTackles = inputCount.entities['teamATackles'] !== 0 ? inputCount.entities['teamATackles'] : localStorage.getItem('teamATackles') //"teamATackles"
+    rightOff = inputCount.entities['teamAOffsides'] !== 0 ? inputCount.entities['teamAOffsides'] : localStorage.getItem('teamAOffsides') //"teamAOffsides"
+    rightFouls = inputCount.entities['teamAFouls'] !== 0 ? inputCount.entities['teamAFouls'] : localStorage.getItem('teamAFouls') //"teamAFouls"
+    rightYCs = inputCount.entities['teamAYellowCards'] !== 0 ? inputCount.entities['teamAYellowCards'] : localStorage.getItem('teamAYellowCards') //"teamAYellowCards"
+    rightRCs = inputCount.entities['teamARedCards'] !== 0 ? inputCount.entities['teamARedCards'] : localStorage.getItem('teamARedCards') //"teamARedCards"
+
+  }
+
+  function handleContinueScoring(e) {
+    history.push({
+      pathname: '/game-tracking',
+    })
+
+  }
+
+  function handleStartSecond(e) {
+
+    // update half in store and local storage
+    localStorage.setItem('gameHalf', 2)
+    dispatch(changeHalf(2))
+
+    history.push({
+      pathname: '/game-tracking',
+    })
 
   }
   
@@ -106,7 +175,7 @@ export default function GameStatsTable(props) {
       </Popup>
       <div className={s.gameStats_title}>
         <h2>{half}</h2>
-        <h3>{gameDate.value}</h3>
+        <h3>{format(gameDate, 'MM/dd/yyyy').toString()}</h3>
       </div>
       <div className={s.gameStats_table}>
         <table>
@@ -116,86 +185,76 @@ export default function GameStatsTable(props) {
             <th>{visAbbrev}</th>
           </tr>
           <tr className={s.gameStats_row}>
-            <td className={`${s.gameStats_stat} ${s.gameStats_goals}`}>{goalCount.entities[leftGoals]}</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_goals}`}>{leftGoals}</td>
             <td>-</td>
-            <td className={`${s.gameStats_stat} ${s.gameStats_goals}`}>{goalCount.entities[rightGoals]}</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_goals}`}>{rightGoals}</td>
           </tr>
           <tr className={s.gameStats_row}>
-            <td className={`${s.gameStats_stat} ${s.gameStats_passes}`}>{inputCount.entities[leftPasses]}</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_passes}`}>{leftPasses}</td>
             <td className={s.gameStats_statLabel}>Passes</td>
-            <td className={`${s.gameStats_stat} ${s.gameStats_passes}`}>{inputCount.entities[rightPasses]}</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_passes}`}>{rightPasses}</td>
           </tr>
           <tr className={s.gameStats_row}>
-            <td className={`${s.gameStats_stat} ${s.gameStats_shots}`}>{inputCount.entities[leftShots]}</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_shots}`}>{leftShots}</td>
             <td className={s.gameStats_statLabel}>Shots</td>
-            <td className={`${s.gameStats_stat} ${s.gameStats_shots}`}>{inputCount.entities[rightShots]}</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_shots}`}>{rightShots}</td>
           </tr>
           <tr className={s.gameStats_row}>
-            <td className={`${s.gameStats_stat} ${s.gameStats_corners}`}>{inputCount.entities[leftCKs]}</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_corners}`}>{leftCKs}</td>
             <td className={s.gameStats_statLabel}>Corner Kicks</td>
-            <td className={`${s.gameStats_stat} ${s.gameStats_corners}`}>{inputCount.entities[rightCKs]}</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_corners}`}>{rightCKs}</td>
           </tr>
           <tr className={s.gameStats_row}>
-            <td className={`${s.gameStats_stat} ${s.gameStats_goalKicks}`}>{inputCount.entities[leftGKs]}</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_goalKicks}`}>{leftGKs}</td>
             <td className={s.gameStats_statLabel}>Goal Kicks</td>
-            <td className={`${s.gameStats_stat} ${s.gameStats_goalKicks}`}>{inputCount.entities[rightGKs]}</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_goalKicks}`}>{rightGKs}</td>
           </tr>
           <tr className={s.gameStats_row}>
-            <td className={`${s.gameStats_stat} ${s.gameStats_tackles}`}>{inputCount.entities[leftTackles]}</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_tackles}`}>{leftTackles}</td>
             <td className={s.gameStats_statLabel}>Tackles</td>
-            <td className={`${s.gameStats_stat} ${s.gameStats_tackles}`}>{inputCount.entities[rightTackles]}</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_tackles}`}>{rightTackles}</td>
           </tr>
           <tr className={s.gameStats_row}>
-            <td className={`${s.gameStats_stat} ${s.gameStats_offsides}`}>{inputCount.entities[leftOff]}</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_offsides}`}>{leftOff}</td>
             <td className={s.gameStats_statLabel}>Offsides</td>
-            <td className={`${s.gameStats_stat} ${s.gameStats_offsides}`}>{inputCount.entities[rightOff]}</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_offsides}`}>{rightOff}</td>
           </tr>
           <tr className={s.gameStats_row}>
-            <td className={`${s.gameStats_stat} ${s.gameStats_fouls}`}>{inputCount.entities[leftFouls]}</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_fouls}`}>{leftFouls}</td>
             <td className={s.gameStats_statLabel}>Fouls</td>
-            <td className={`${s.gameStats_stat} ${s.gameStats_fouls}`}>{inputCount.entities[rightFouls]}</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_fouls}`}>{rightFouls}</td>
           </tr>
           <tr className={`${s.gameStats_row} ${s.gameStats_groupLabel}`}>
             <td colSpan="3" className={s.gamesStat_label}>Cards</td>
           </tr>
           <tr className={s.gameStats_row}>
-            <td className={`${s.gameStats_stat} ${s.gameStats_yellows}`}>{inputCount.entities[leftYCs]}</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_yellows}`}>{leftYCs}</td>
             <td className={s.gameStats_statLabel}>Yellows</td>
-            <td className={`${s.gameStats_stat} ${s.gameStats_yellows}`}>{inputCount.entities[rightYCs]}</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_yellows}`}>{rightYCs}</td>
           </tr>
           <tr className={s.gameStats_row}>
-            <td className={`${s.gameStats_stat} ${s.gameStats_reds}`}>{inputCount.entities[leftRCs]}</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_reds}`}>{leftRCs}</td>
             <td className={s.gameStats_statLabel}>Red</td>
-            <td className={`${s.gameStats_stat} ${s.gameStats_reds}`}>{inputCount.entities[rightRCs]}</td>
+            <td className={`${s.gameStats_stat} ${s.gameStats_reds}`}>{rightRCs}</td>
           </tr>
         </table>
-          { currHalf === 2 &&
-            <div className={s.buttons}>
-              <div className={s.buttonWrapper}>
-                <input type="button" value="End Game" className="buttonRed buttonLarge" onClick={() => setOpen(o => !o)} />
+        <div className={s.buttons}>
+            <div className={s.buttons_buttonWrapper}>
+              <input type="button" value="Continue Scoring" className="buttonBlue buttonMed" onClick={handleContinueScoring}/>
+            </div>
+            { 
+              currHalf === 1 && 
+              <div className={s.buttons_buttonWrapper}>
+                <input type="button" value="Start 2nd Half" className="buttonGreen buttonMed" onClick={handleStartSecond}/>
               </div>
+            }
+          { 
+            currHalf === 2 &&
+            <div className={s.buttons_buttonWrapper}>
+              <input type="button" value="End Game" className="buttonRed buttonMed" onClick={() => setOpen(o => !o)} />
             </div>
           }
-      </div>
-      <div className={s.gameNavigation}>
-          <div className={s.gameNavigation_link}>
-              <Link to={{
-                pathname: '/game-tracking',  
-                trackingProps: {
-                  half: currHalf
-                }
-              }}>&larr; Continue Scoring</Link>
-          </div>
-          { currHalf === 1 &&
-            <div className={s.gameNavigation_link}>
-                <Link to={{
-                  pathname: '/game-tracking', 
-                  trackingProps: {
-                    half: 2
-                  }
-                }}>Start Second Half</Link>
-            </div>
-          }
+        </div>
       </div>
     </div>
   );

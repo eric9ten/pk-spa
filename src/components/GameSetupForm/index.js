@@ -16,18 +16,19 @@ function GameSetupForm(props) {
   const dispatch = useDispatch()
   const [isInvalid, setIsInvalid] = useState(false);
   const [open, setOpen] = useState(false);
-  const closeModal = () => setOpen(false);
+  const closeModal = () => setOpen(false)
   
   const gameDate = useSelector((state) => state.dateTextbox)
   const yourName = useSelector((state) => state.inputTextbox.entities.yourName)
   const yourAbbrev = useSelector((state) => state.inputTextbox.entities.yourAbbrev)
   const oppName = useSelector((state) => state.inputTextbox.entities.oppName)
   const oppAbbrev = useSelector((state) => state.inputTextbox.entities.oppAbbrev)
+  const gameHalf = useSelector((state) => state.gameHalf)
 
 
   function handleClear (e) {
     clearLocalStorage()
-    clearReduxStore()
+    //clearReduxStore()
     setOpen(false)
 
   }
@@ -39,20 +40,22 @@ function GameSetupForm(props) {
     localStorage.removeItem('isHome')
     localStorage.removeItem('oppName')
     localStorage.removeItem('oppAbbrev')
+    localStorage.removeItem('gameHalf')
 
     setIsInvalid(false)
 
   }
 
-  function clearReduxStore() {
+  /*function clearReduxStore() {
     dispatch(changeInput('yourName', ''))
 
-  }
+  }*/
 
   function handleSubmit (e) {
     e.preventDefault();
 
     dispatch(changeHalf(1))
+    localStorage.setItem("gameHalf", 1)
 
     if(!isInvalid) {
       history.push({
