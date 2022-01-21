@@ -46,8 +46,8 @@ export default function GoalCounter(props) {
         <div className={ `${s.goalCounter} ${inputSide}` }>
             <div className={s.scoreBoard}>
                 <h2 className={s.teamAbbrev}>{props.teamAbbrev}</h2>
-                <input id={eleName} type="number" step="1" max={props.maxInc} value={goalInputCounter.entities[eleName]} name={props.inputName} size={props.size} className={s.input} 
-                    onChange={handleChange} />
+                <input id={eleName} type="number" step="1" inputmode="decimal" max={props.maxInc} value={goalInputCounter.entities[eleName]} name={props.inputName} size={props.size} className={s.input} 
+                    disabled onChange={handleChange} />
             </div>
             <div className={s.buttons}>
                 <input type="button" value="-" aria-label="Increment value" className={` ${s.counterButton} ${s.buttonMinus} `} onClick={decrementCount}/>
