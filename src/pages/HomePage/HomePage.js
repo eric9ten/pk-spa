@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Page from './../../components/Page'
-import Logo from './../../components/Logo'
+import StatsHome from '../../components/StatsHome';
 
 import s from './home-page.module.scss'
 
@@ -9,7 +9,7 @@ export default function HomePage() {
 
   return (
     <div className={s.homePage}>
-      <Page link={"/game-setup"} linkText={"Game Setup"} content={Logo}/>
+      <Page content={StatsHome}/>
     </div>
   )
 }
