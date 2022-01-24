@@ -1,4 +1,27 @@
 .goalSetupFormContainer {
     width: 100%;
 
+      
+    .buttons {
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+        width: 100%;
+        margin: 2rem 0 3.5rem;
+
+        .buttonWrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+
+            .buttonNote {
+                margin-top: .25rem;
+                font-family: var(--font2), sans-serif;
+                font-size: .65rem;
+                text-transform: uppercase;
+            }
+        }
+    }
 }
