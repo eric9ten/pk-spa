@@ -56,6 +56,7 @@
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
             -webkit-appearance: none;
+            display: none;
             margin: 0;
         }
         
@@ -64,7 +65,7 @@
         }
 
         .input {
-            width: 40%;
+            width: 50%;
             max-width: 4rem;
             text-align: center;
             border: none;

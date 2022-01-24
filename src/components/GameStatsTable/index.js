@@ -5,7 +5,7 @@ import { changeHalf } from '../GameSetupForm/gameSetupSlice';
 import { changeDate } from '../DateTextbox/dateTextboxSlice';
 import { changeInput } from '../InputTextbox/inputTextboxSlice';
 import Popup from 'reactjs-popup';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 
 import history from '../../history';

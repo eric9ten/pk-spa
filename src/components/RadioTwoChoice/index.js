@@ -20,7 +20,7 @@ export default function RadioTwoChoice(props) {
 
   }
 
-  function updateCheck() {
+  /*function updateCheck() {
 
     if (goalStart.startingGoal === 'left' ) {
       const leftGoal = document.getElementById("startLeft")
@@ -34,7 +34,7 @@ export default function RadioTwoChoice(props) {
 
     }
 
-  }
+  }*/
   
   function handleChange (e) {
     dispatch(setStartingGoal(e.target.value))

@@ -68,7 +68,7 @@ function StatTrackingForm(props) {
     if (localStorage.getItem('oppAbbrev') !== null) {
         oppAbb = localStorage.getItem('oppAbbrev')
     } else {
-        oppAbb = yourAbbrev
+        oppAbb = oppAbbrev
     }
 
     if (statsSide === 'left') {

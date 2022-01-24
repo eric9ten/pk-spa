@@ -50,7 +50,7 @@ export default function InputCounter(props) {
                 <input type="button" value="+" className={`${s.counterButton} ${s.buttonPlus}`} aria-label="Increment value"
                     onClick={incrementCount} />
             </div>
-            <input type="number" step="1" max={props.maxInc} value={counter.entities[eleName]} name={eleName} size={props.size} 
+            <input type="number" step="1" inputmode="decimal" max={props.maxInc} value={counter.entities[eleName]} name={eleName} size={props.size} 
                 className={s.input} onChange={handleChange} />
         </div>
     )
