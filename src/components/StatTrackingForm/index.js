@@ -46,8 +46,7 @@ function StatTrackingForm(props) {
     }
 
     if (currHalf === 1) {
-        statsSide = startGoal.startingGoal
-        console.log("The stats are on side " + statsSide)
+        statsSide = startGoal
         
     } else {
         if (startGoal === 'left') {
@@ -57,7 +56,7 @@ function StatTrackingForm(props) {
         }
     }
     
-    //console.log("The stats are on side " + statsSide)
+    console.log("The stats are on side " + statsSide)
 
     if (localStorage.getItem('yourAbbrev') !== null) {
         yourAbb = localStorage.getItem('yourAbbrev')
