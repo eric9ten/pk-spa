@@ -33,7 +33,7 @@
     "workbox-streams": "^5.1.4"
   },
   "scripts": {
-    "startnet": "HOST=192.168.0.211 react-scripts start",
+    "startnet": "HOST=192.168.0.3 react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

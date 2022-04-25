@@ -185,13 +185,13 @@ function StatTrackingForm(props) {
             
             <div className={`${s.statGroup} ${s.passes}`}>
                 <div className={`${s.leftGoal} ${s.statCol}`}>
-                    <Counter inputName={leftPasses} maxInc={999} size={4} inputSide={"right"} />
+                    <Counter inputName={leftPasses} maxInc={999} size={6} inputSide={"right"} />
                 </div>
                 <div className={s.labels}>
                     <p>Passes</p>
                 </div>
                 <div className={`${s.rightGoal} ${s.statCol}`}>
-                    <Counter inputName={rightPasses} maxInc={999} size={4} inputSide={"left"} />
+                    <Counter inputName={rightPasses} maxInc={999} size={6} inputSide={"left"} />
                 </div>
             </div>
             <div className={`${s.statGroup} ${s.shots}`}>

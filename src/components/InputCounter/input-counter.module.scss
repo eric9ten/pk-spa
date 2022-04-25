@@ -5,7 +5,7 @@
     align-items: center;
     max-width: 250px;
     font-family: var(--font2);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 
     &.inputRight {
 
@@ -14,6 +14,7 @@
             justify-content: space-around;
             align-items: center;
             order: 1;
+            font-size: .9rem;
 
             .buttonMinus { 
                 order: 1;
@@ -40,6 +41,7 @@
             justify-content: space-around;
             align-items: center;
             order: 2;
+            font-size: .9rem;
 
             .buttonMinus { 
                 order: 1;
