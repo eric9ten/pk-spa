@@ -97,7 +97,7 @@ function StatTrackingForm(props) {
         rightRCs = "teamBRedCards"
 
     } else {
-        leftAbbrev = oppAbb;
+        leftAbbrev = oppAbb
         leftGoals = "teamBGoals"
         leftPasses = "teamBPasses"
         leftShots = "teamBShots"
@@ -109,7 +109,7 @@ function StatTrackingForm(props) {
         leftYCs = "teamBYellowCards"
         leftRCs = "teamBRedCards"
 
-        rightAbbrev = yourAbb;
+        rightAbbrev = yourAbb
         rightGoals = "teamAGoals"
         rightPasses = "teamAPasses"
         rightShots = "teamAShots"
@@ -121,6 +121,8 @@ function StatTrackingForm(props) {
         rightYCs = "teamAYellowCards"
         rightRCs = "teamARedCards"
     }
+
+    //console.log("The stats are on side " + statsSide)
 
     function resetForm () {
         //left stats

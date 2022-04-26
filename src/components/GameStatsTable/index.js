@@ -80,53 +80,98 @@ export default function GameStatsTable(props) {
   
   if (isHome) {
     homeAbbrev = yourAbbrev;
-    leftGoals = goalCount.entities['teamAGoals'] !== 0 ? goalCount.entities['teamAGoals'] : localStorage.getItem('teamAGoals') //teamAGoals
-    leftPasses = inputCount.entities['teamAPasses'] !== 0 ? inputCount.entities['teamAPasses'] : localStorage.getItem('teamAPasses') //"teamAPasses"
-    leftShots = inputCount.entities['teamAShots'] !== 0 ? inputCount.entities['teamAShots'] : localStorage.getItem('teamAShots') //"teamAShots"
-    leftCKs = inputCount.entities['teamACorners'] !== 0 ? inputCount.entities['teamACorners'] : localStorage.getItem('teamACorners') //"teamACorners"
-    leftGKs = inputCount.entities['teamAGoalKicks'] !== 0 ? inputCount.entities['teamAGoalKicks'] : localStorage.getItem('teamAGoalKicks') //"teamAGoalKicks"
-    leftTackles = inputCount.entities['teamATackles'] !== 0 ? inputCount.entities['teamATackles'] : localStorage.getItem('teamATackles') //"teamATackles"
-    leftOff = inputCount.entities['teamAOffsides'] !== 0 ? inputCount.entities['teamAOffsides'] : localStorage.getItem('teamAOffsides') //"teamAOffsides"
-    leftFouls = inputCount.entities['teamAFouls'] !== 0 ? inputCount.entities['teamAFouls'] : localStorage.getItem('teamAFouls') //"teamAFouls"
-    leftYCs = inputCount.entities['teamAYellowCards'] !== 0 ? inputCount.entities['teamAYellowCards'] : localStorage.getItem('teamAYellowCards') //"teamAYellowCards"
-    leftRCs = inputCount.entities['teamARedCards'] !== 0 ? inputCount.entities['teamARedCards'] : localStorage.getItem('teamARedCards') //"teamARedCards"
+    leftGoals = validateGoalCount('teamAGoals') //goalCount.entities['teamAGoals'] > 0 ? goalCount.entities['teamAGoals'] : localStorage.getItem('teamAGoals') //teamAGoals
+    leftPasses = validateStatCount('teamAPasses') //inputCount.entities['teamAPasses'] !== 0 ? inputCount.entities['teamAPasses'] : localStorage.getItem('teamAPasses') //"teamAPasses"
+    leftShots = validateStatCount('teamAShots') //inputCount.entities['teamAShots'] !== 0 ? inputCount.entities['teamAShots'] : localStorage.getItem('teamAShots') //"teamAShots"
+    leftCKs = validateStatCount('teamACorners') //inputCount.entities['teamACorners'] !== 0 ? inputCount.entities['teamACorners'] : localStorage.getItem('teamACorners') //"teamACorners"
+    leftGKs = validateStatCount('teamAGoalKicks') //inputCount.entities['teamAGoalKicks'] !== 0 ? inputCount.entities['teamAGoalKicks'] : localStorage.getItem('teamAGoalKicks') //"teamAGoalKicks"
+    leftTackles = validateStatCount('teamATackles') //inputCount.entities['teamATackles'] !== 0 ? inputCount.entities['teamATackles'] : localStorage.getItem('teamATackles') //"teamATackles"
+    leftOff = validateStatCount('teamAOffsides') //inputCount.entities['teamAOffsides'] !== 0 ? inputCount.entities['teamAOffsides'] : localStorage.getItem('teamAOffsides') //"teamAOffsides"
+    leftFouls = validateStatCount('teamAFouls') //inputCount.entities['teamAFouls'] !== 0 ? inputCount.entities['teamAFouls'] : localStorage.getItem('teamAFouls') //"teamAFouls"
+    leftYCs = validateStatCount('teamAYellowCards') //inputCount.entities['teamAYellowCards'] !== 0 ? inputCount.entities['teamAYellowCards'] : localStorage.getItem('teamAYellowCards') //"teamAYellowCards"
+    leftRCs = validateStatCount('teamARedCards') //inputCount.entities['teamARedCards'] !== 0 ? inputCount.entities['teamARedCards'] : localStorage.getItem('teamARedCards') //"teamARedCards"
 
     visAbbrev = oppAbbrev;
-    rightGoals = goalCount.entities['teamBGoals'] !== 0 ? goalCount.entities['teamBGoals'] : localStorage.getItem('teamBGoals') //"teamBGoals"
-    rightPasses = inputCount.entities['teamBPasses'] !== 0 ? inputCount.entities['teamBPasses'] : localStorage.getItem('teamBPasses') //"teamBPasses"
-    rightShots = inputCount.entities['teamBShots'] !== 0 ? inputCount.entities['teamBShots'] : localStorage.getItem('teamBShots') //"teamBShots"
-    rightCKs =  inputCount.entities['teamBCorners'] !== 0 ? inputCount.entities['teamBCorners'] : localStorage.getItem('teamBCorners') //"teamBCorners"
-    rightGKs =  inputCount.entities['teamBGoalKicks'] !== 0 ? inputCount.entities['teamBGoalKicks'] : localStorage.getItem('teamBGoalKicks') //"teamBGoalKicks"
-    rightTackles = inputCount.entities['teamBTackles'] !== 0 ? inputCount.entities['teamBTackles'] : localStorage.getItem('teamBTackles') //"teamBTackles"
-    rightOff = inputCount.entities['teamBOffsides'] !== 0 ? inputCount.entities['teamBOffsides'] : localStorage.getItem('teamBOffsides') //"teamBOffsides"
-    rightFouls = inputCount.entities['teamBFouls'] !== 0 ? inputCount.entities['teamBFouls'] : localStorage.getItem('teamBFouls') //"teamBFouls"
-    rightYCs = inputCount.entities['teamBYellowCards'] !== 0 ? inputCount.entities['teamBYellowCards'] : localStorage.getItem('teamBYellowCards') //"teamBYellowCards"
-    rightRCs = inputCount.entities['teamBRedCards'] !== 0 ? inputCount.entities['teamBRedCards'] : localStorage.getItem('teamBRedCards') //"teamBRedCards"
+    rightGoals = validateGoalCount('teamBGoals') //goalCount.entities['teamBGoals'] > 0 ? goalCount.entities['teamBGoals'] : localStorage.getItem('teamBGoals') //"teamBGoals"
+    rightPasses = validateStatCount('teamBPasses') //inputCount.entities['teamBPasses'] !== 0 ? inputCount.entities['teamBPasses'] : localStorage.getItem('teamBPasses') //"teamBPasses"
+    rightShots = validateStatCount('teamBShots') //inputCount.entities['teamBShots'] !== 0 ? inputCount.entities['teamBShots'] : localStorage.getItem('teamBShots') //"teamBShots"
+    rightCKs =  validateStatCount('teamBCorners') //inputCount.entities['teamBCorners'] !== 0 ? inputCount.entities['teamBCorners'] : localStorage.getItem('teamBCorners') //"teamBCorners"
+    rightGKs =  validateStatCount('teamBGoalKicks') //inputCount.entities['teamBGoalKicks'] !== 0 ? inputCount.entities['teamBGoalKicks'] : localStorage.getItem('teamBGoalKicks') //"teamBGoalKicks"
+    rightTackles = validateStatCount('teamBTackles') //inputCount.entities['teamBTackles'] !== 0 ? inputCount.entities['teamBTackles'] : localStorage.getItem('teamBTackles') //"teamBTackles"
+    rightOff = validateStatCount('teamBOffsides') //inputCount.entities['teamBOffsides'] !== 0 ? inputCount.entities['teamBOffsides'] : localStorage.getItem('teamBOffsides') //"teamBOffsides"
+    rightFouls = validateStatCount('teamBFouls') //inputCount.entities['teamBFouls'] !== 0 ? inputCount.entities['teamBFouls'] : localStorage.getItem('teamBFouls') //"teamBFouls"
+    rightYCs = validateStatCount('teamBYellowCards') //inputCount.entities['teamBYellowCards'] !== 0 ? inputCount.entities['teamBYellowCards'] : localStorage.getItem('teamBYellowCards') //"teamBYellowCards"
+    rightRCs = validateStatCount('teamBYellowCards') //inputCount.entities['teamBRedCards'] !== 0 ? inputCount.entities['teamBRedCards'] : localStorage.getItem('teamBRedCards') //"teamBRedCards"
 
   } else {
     homeAbbrev = oppAbbrev;
-    leftGoals = goalCount.entities['teamBGoals'] !== 0 ? goalCount.entities['teamBGoals'] : localStorage.getItem('teamBGoals') //"teamBGoals"
-    leftPasses = inputCount.entities['teamBPasses'] !== 0 ? inputCount.entities['teamBPasses'] : localStorage.getItem('teamBPasses') //"teamAPasses"
-    leftShots = inputCount.entities['teamBShots'] !== 0 ? inputCount.entities['teamBShots'] : localStorage.getItem('teamBShots') //"teamBShots"
-    leftCKs =  inputCount.entities['teamBCorners'] !== 0 ? inputCount.entities['teamBCorners'] : localStorage.getItem('teamBCorners') //"teamBCorners"
-    leftGKs =  inputCount.entities['teamBGoalKicks'] !== 0 ? inputCount.entities['teamBGoalKicks'] : localStorage.getItem('teamBGoalKicks') //"teamBGoalKicks"
-    leftTackles = inputCount.entities['teamBTackles'] !== 0 ? inputCount.entities['teamBTackles'] : localStorage.getItem('teamBTackles') //"teamBTackles"
-    leftOff = inputCount.entities['teamBOffsides'] !== 0 ? inputCount.entities['teamBOffsides'] : localStorage.getItem('teamBOffsides') //"teamBOffsides"
-    leftFouls = inputCount.entities['teamBFouls'] !== 0 ? inputCount.entities['teamBFouls'] : localStorage.getItem('teamBFouls') //"teamBFouls"
-    leftYCs = inputCount.entities['teamBYellowCards'] !== 0 ? inputCount.entities['teamBYellowCards'] : localStorage.getItem('teamBYellowCards') //"teamBYellowCards"
-    leftRCs = inputCount.entities['teamBRedCards'] !== 0 ? inputCount.entities['teamBRedCards'] : localStorage.getItem('teamBRedCards') //"teamBRedCards"
+    leftGoals = validateGoalCount('teamBGoals') //goalCount.entities['teamBGoals'] !== 0 ? goalCount.entities['teamBGoals'] : localStorage.getItem('teamBGoals') //"teamBGoals"
+    leftPasses = validateStatCount('teamBPasses') //inputCount.entities['teamBPasses'] !== 0 ? inputCount.entities['teamBPasses'] : localStorage.getItem('teamBPasses') //"teamAPasses"
+    leftShots = validateStatCount('teamBShots') //inputCount.entities['teamBShots'] !== 0 ? inputCount.entities['teamBShots'] : localStorage.getItem('teamBShots') //"teamBShots"
+    leftCKs = validateStatCount('teamBCorners') //inputCount.entities['teamBCorners'] !== 0 ? inputCount.entities['teamBCorners'] : localStorage.getItem('teamBCorners') //"teamBCorners"
+    leftGKs = validateStatCount('teamBGoalKicks') //inputCount.entities['teamBGoalKicks'] !== 0 ? inputCount.entities['teamBGoalKicks'] : localStorage.getItem('teamBGoalKicks') //"teamBGoalKicks"
+    leftTackles = validateStatCount('teamBTackles') //inputCount.entities['teamBTackles'] !== 0 ? inputCount.entities['teamBTackles'] : localStorage.getItem('teamBTackles') //"teamBTackles"
+    leftOff = validateStatCount('teamBOffsides') //inputCount.entities['teamBOffsides'] !== 0 ? inputCount.entities['teamBOffsides'] : localStorage.getItem('teamBOffsides') //"teamBOffsides"
+    leftFouls = validateStatCount('teamBFouls') //inputCount.entities['teamBFouls'] !== 0 ? inputCount.entities['teamBFouls'] : localStorage.getItem('teamBFouls') //"teamBFouls"
+    leftYCs = validateStatCount('teamBYellowCards') //inputCount.entities['teamBYellowCards'] !== 0 ? inputCount.entities['teamBYellowCards'] : localStorage.getItem('teamBYellowCards') //"teamBYellowCards"
+    leftRCs = validateStatCount('teamBRedCards') //inputCount.entities['teamBRedCards'] !== 0 ? inputCount.entities['teamBRedCards'] : localStorage.getItem('teamBRedCards') //"teamBRedCards"
 
     visAbbrev = yourAbbrev;
-    rightGoals = goalCount.entities['teamAGoals'] !== 0 ? goalCount.entities['teamAGoals'] : localStorage.getItem('teamAGoals') //"teamAGoals"
-    rightPasses = inputCount.entities['teamAPasses'] !== 0 ? inputCount.entities['teamAPasses'] : localStorage.getItem('teamAPasses') //"teamAPasses"
-    rightShots = inputCount.entities['teamAShots'] !== 0 ? inputCount.entities['teamAShots'] : localStorage.getItem('teamAShots') //"teamAShots"
-    rightCKs =  inputCount.entities['teamACorners'] !== 0 ? inputCount.entities['teamACorners'] : localStorage.getItem('teamACorners') //"teamACorners"
-    rightGKs =  inputCount.entities['teamAGoalKicks'] !== 0 ? inputCount.entities['teamAGoalKicks'] : localStorage.getItem('teamAGoalKicks') //"teamAGoalKicks"
-    rightTackles = inputCount.entities['teamATackles'] !== 0 ? inputCount.entities['teamATackles'] : localStorage.getItem('teamATackles') //"teamATackles"
-    rightOff = inputCount.entities['teamAOffsides'] !== 0 ? inputCount.entities['teamAOffsides'] : localStorage.getItem('teamAOffsides') //"teamAOffsides"
-    rightFouls = inputCount.entities['teamAFouls'] !== 0 ? inputCount.entities['teamAFouls'] : localStorage.getItem('teamAFouls') //"teamAFouls"
-    rightYCs = inputCount.entities['teamAYellowCards'] !== 0 ? inputCount.entities['teamAYellowCards'] : localStorage.getItem('teamAYellowCards') //"teamAYellowCards"
-    rightRCs = inputCount.entities['teamARedCards'] !== 0 ? inputCount.entities['teamARedCards'] : localStorage.getItem('teamARedCards') //"teamARedCards"
+    rightGoals = validateGoalCount('teamAGoals') //goalCount.entities['teamAGoals'] !== 0 ? goalCount.entities['teamAGoals'] : localStorage.getItem('teamAGoals') //"teamAGoals"
+    rightPasses = validateStatCount('teamAPasses') //inputCount.entities['teamAPasses'] !== 0 ? inputCount.entities['teamAPasses'] : localStorage.getItem('teamAPasses') //"teamAPasses"
+    rightShots = validateStatCount('teamAShots') //iinputCount.entities['teamAShots'] !== 0 ? inputCount.entities['teamAShots'] : localStorage.getItem('teamAShots') //"teamAShots"
+    rightCKs = validateStatCount('teamACorners') //inputCount.entities['teamACorners'] !== 0 ? inputCount.entities['teamACorners'] : localStorage.getItem('teamACorners') //"teamACorners"
+    rightGKs = validateStatCount('teamAGoalKicks') //validateStatCount('teamBGoalKicks') //inputCount.entities['teamAGoalKicks'] !== 0 ? inputCount.entities['teamAGoalKicks'] : localStorage.getItem('teamAGoalKicks') //"teamAGoalKicks"
+    rightTackles = validateStatCount('teamATackles') //inputCount.entities['teamATackles'] !== 0 ? inputCount.entities['teamATackles'] : localStorage.getItem('teamATackles') //"teamATackles"
+    rightOff = validateStatCount('teamAOffsides') //inputCount.entities['teamAOffsides'] !== 0 ? inputCount.entities['teamAOffsides'] : localStorage.getItem('teamAOffsides') //"teamAOffsides"
+    rightFouls = validateStatCount('teamAFouls') //inputCount.entities['teamAFouls'] !== 0 ? inputCount.entities['teamAFouls'] : localStorage.getItem('teamAFouls') //"teamAFouls"
+    rightYCs = validateStatCount('teamAYellowCards') //inputCount.entities['teamAYellowCards'] !== 0 ? inputCount.entities['teamAYellowCards'] : localStorage.getItem('teamAYellowCards') //"teamAYellowCards"
+    rightRCs = validateStatCount('teamARedCards') //inputCount.entities['teamARedCards'] !== 0 ? inputCount.entities['teamARedCards'] : localStorage.getItem('teamARedCards') //"teamARedCards"
+
+  }
+
+  function validateGoalCount(stat) {
+    let statValue = 0
+
+    if (goalCount.entities[stat] === null || goalCount.entities[stat] === 0 || goalCount.entities[stat] === undefined)  {
+      //statValue = localStorage.getItem(stat)
+      
+      if(localStorage.getItem(stat) === null  && localStorage.getItem(stat) === undefined){
+        statValue = 0
+
+      } else {
+        statValue =  goalCount.entities[stat]
+      }
+
+    } else {
+      statValue =   goalCount.entities[stat]
+
+    }
+    return statValue
+
+  }
+  
+  function validateStatCount(stat) {
+    let statValue = 0
+
+    if (inputCount.entities[stat] === null || inputCount.entities[stat] === 0 || inputCount.entities[stat] === undefined)  {
+      //statValue = localStorage.getItem(stat)
+      
+      if(localStorage.getItem(stat) === null  && localStorage.getItem(stat) === undefined){
+        statValue = 0
+        //console.log ("The " + stat + " is the default value")
+
+      } else {
+        statValue =  inputCount.entities[stat]
+        //console.log ("The " + stat + " is redux store value of " + inputCount.entities[stat])
+      }
+
+    } else {
+      statValue =  inputCount.entities[stat]
+      //console.log ("The " + stat + " is redux store value of " +  inputCount.entities[stat])
+
+    }
+    return statValue
 
   }
 
