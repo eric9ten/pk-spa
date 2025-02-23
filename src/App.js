@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import { createStore } from 'redux'
 //import { Provider } from 'react-redux';
 import { connect } from 'react-redux'
+import TagManager from 'react-gtm-module'
 
 import HomePage from './pages/HomePage/HomePage'
 import GameSetup from './pages/GameSetup/game-setup'
@@ -11,7 +12,20 @@ import StatTrackingPage from './pages/StatTracker/stat-tracker'
 
 import '../src/assets/sass/main.scss';
 
+const tagManagerArgs = {
+  gtmId: '	GTM-PNK48FK3'
+}
+TagManager.initialize(tagManagerArgs)
 function App() {
+  window.dataLayer.push({
+    event: 'pageview',
+    eventProps: {
+        category: 'category',
+        action: 'action',
+        label: 'label',
+        value: 'value'
+    }
+  });
   const initialValues = {
     gameDate: '', yourName: '', yourAbbrev: '', oppName: '', oppAbbrev: '', startGoal: 'left', isHome: false,
     teamAGoals: 0, teamAPasses: 0, teamAShots: 0, teamACorners: 0, teamAGoalKicks: 0, teamATackles: 0, teamAOffsides: 0, teamAFouls: 0, teamAYellowCards: 0, teamARedCards: 0,

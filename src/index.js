@@ -9,7 +9,6 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import Routes from './Routes';
 
-
 ReactDOM.render(
 
   <Provider store={store}>

@@ -11,7 +11,7 @@ module.exports = {
       rules: [
         {
           test: /\.css$/,
-          loader: ["style-loader", "css-loader"],
+          loader: ["style-loader", "css-loader", "sass-loader"],
         },
         {
           test: /\.s[ac]ss$/i,
@@ -22,27 +22,19 @@ module.exports = {
             {
               loader: "css-loader",
               options: {
-                modules:true
+                sourceMap: true,
               }
             },
             {
               loader: "sass-loader",
               options: {
                 // Prefer `dart-sass`
+                additionalData: `@import "./assets/sass/main.scss";`,
                 implementation: require.resolve("sass"),
                 sourceMap: true,
                 sassOptions: {
                   outputStyle: "compressed"
                 },
-              },
-            },
-            {
-              loader: 'sass-resources-loader',
-              options: {
-                // Provide path to the file with resources
-                resources: [
-                  '../src/assets/sass/main.scss'
-                ]
               },
             },
           ],

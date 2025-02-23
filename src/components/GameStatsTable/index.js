@@ -101,7 +101,7 @@ export default function GameStatsTable(props) {
     rightOff = validateStatCount('teamBOffsides') //inputCount.entities['teamBOffsides'] !== 0 ? inputCount.entities['teamBOffsides'] : localStorage.getItem('teamBOffsides') //"teamBOffsides"
     rightFouls = validateStatCount('teamBFouls') //inputCount.entities['teamBFouls'] !== 0 ? inputCount.entities['teamBFouls'] : localStorage.getItem('teamBFouls') //"teamBFouls"
     rightYCs = validateStatCount('teamBYellowCards') //inputCount.entities['teamBYellowCards'] !== 0 ? inputCount.entities['teamBYellowCards'] : localStorage.getItem('teamBYellowCards') //"teamBYellowCards"
-    rightRCs = validateStatCount('teamBYellowCards') //inputCount.entities['teamBRedCards'] !== 0 ? inputCount.entities['teamBRedCards'] : localStorage.getItem('teamBRedCards') //"teamBRedCards"
+    rightRCs = validateStatCount('teamBRedCards') //inputCount.entities['teamBRedCards'] !== 0 ? inputCount.entities['teamBRedCards'] : localStorage.getItem('teamBRedCards') //"teamBRedCards"
 
   } else {
     homeAbbrev = oppAbbrev;
